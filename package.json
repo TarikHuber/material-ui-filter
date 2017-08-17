@@ -1,6 +1,6 @@
 {
   "name": "material-ui-filter",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "material-ui-filter React component",
   "main": "lib/index.js",
   "module": "es/index.js",
