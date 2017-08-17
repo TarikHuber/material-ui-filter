@@ -1,15 +1,20 @@
-import React, {Component} from 'react'
 import {render} from 'react-dom'
+import React  from 'react';
+import App from './App.js'
+import { Provider } from 'react-redux';
+import reducers from './reducers';
+import { createLogger } from 'redux-logger'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { createStore, compose, applyMiddleware } from 'redux';
 
-import Example from '../../src'
+const logger=createLogger({});
 
-class Demo extends Component {
-  render() {
-    return <div>
-      <h1>material-ui-filter Demo</h1>
-      <Example/>
-    </div>
-  }
-}
+const store = createStore(reducers, {}, compose(applyMiddleware(logger)));
 
-render(<Demo/>, document.querySelector('#demo'))
+render(
+  <Provider store={store}>
+    <MuiThemeProvider>
+      <App/>
+    </MuiThemeProvider>
+  </Provider>
+  , document.querySelector('#demo'))

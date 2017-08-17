@@ -1,16 +1,35 @@
 # material-ui-filter
+[![Build Status][travis-image]][travis-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![License][license-image]][license-url]
+[![Code Coverage][coverage-image]][coverage-url]
+[![Code Style][code-style-image]][code-style-url]
 
-[![Travis][build-badge]][build]
-[![npm package][npm-badge]][npm]
-[![Coveralls][coveralls-badge]][coveralls]
+This project was bootstrapped with [nwb](https://github.com/insin/nwb)
 
-Describe material-ui-filter here.
+Firekit was created to help working with Firebase in React Projects that use Redux as state storage.
 
-[build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
-[build]: https://travis-ci.org/user/repo
 
-[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
-[npm]: https://www.npmjs.org/package/npm-package
+## Table of Contents
 
-[coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
-[coveralls]: https://coveralls.io/github/user/repo
+- [Features](#features)
+- [License](#license)
+
+## Features
+
+
+
+## License
+
+MIT @TarikHuber
+
+[travis-image]: https://travis-ci.org/TarikHuber/material-ui-filter.svg?branch=master
+[travis-url]: https://travis-ci.org/TarikHuber/material-ui-filter
+[daviddm-image]: https://img.shields.io/david/TarikHuber/material-ui-filter.svg?style=flat-square
+[daviddm-url]: https://david-dm.org/TarikHuber/material-ui-filter
+[coverage-image]: https://img.shields.io/codecov/c/github/TarikHuber/material-ui-filter.svg?style=flat-square
+[coverage-url]: https://codecov.io/gh/TarikHuber/material-ui-filter
+[license-image]: https://img.shields.io/npm/l/express.svg
+[license-url]: https://github.com/TarikHuber/material-ui-filter/master/LICENSE
+[code-style-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square
+[code-style-url]: http://standardjs.com/

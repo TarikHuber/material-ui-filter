@@ -1,9 +1,4 @@
-import React, {Component} from 'react'
-
-export default class extends Component {
-  render() {
-    return <div>
-      <h2>Welcome to React components</h2>
-    </div>
-  }
-}
+export FilterDrawer from './components/FilterDrawer'
+export filterReducer  from './store/reducer'
+export * as filterSelectors from './store/selectors';
+export * as filterActions from './store/actions';
