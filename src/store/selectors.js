@@ -98,62 +98,52 @@ export function selectQueryProps (query) {
 
 export function getFilteredList (filterName, filters, list) {
   const { sortField, sortOrientation, queries } = selectFilterProps(filterName, filters)
+  const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' }  
   let result = [...list]
 
-  if (list !== undefined && queries.length) {
-    result = list.filter((row, i) => {
-      let show = true
+  if (list !== undefined && queries) {
+    for (let query of queries) {
+      const { value, operator, field, isCaseSensitive, isSet, type } = selectQueryProps(query)
+      const queryDateString = new Date(value).toLocaleString('de-DE', dateOptions)
+      const queryDateObjWithTime = new Date(formatDateToObject(queryDateString, dateOptions, 'de-DE'))
+      const queryDateObj = new Date(queryDateObjWithTime).setHours(0,0,0,0)
 
-      for (let query of queries) {
-        const { value, operator, field, isCaseSensitive, isSet, type } = selectQueryProps(query)
+      result = result.filter((row, i) => {
+        let show = false
 
         if (isSet) {
           let fieldValue = getValue(row, field.value, isCaseSensitive, type)
-          let queryValue = value
 
           if (type === 'date') {
-            const standardDateOptions = { month: '2-digit', day: '2-digit', year: 'numeric' }
-            const abcDateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' }
+            const fieldDateObj = new Date(fieldValue).setHours(0,0,0,0)
 
-            const queryDateString = new Date(queryValue).toLocaleString('de-DE', abcDateOptions)
-            const queryDateObj = new Date(formatDateToObject(queryDateString, standardDateOptions, 'de-DE'))
-            const fieldDateObj = new Date(new Date(fieldValue).toLocaleString('en-US', standardDateOptions))
+            switch (operator.value) {
+              case '=':
+              show = (queryDateObj - fieldDateObj === 0)
+              break
 
-            // console.log(fieldDateObj);
-            // console.log(queryDateObj);
+              case '!=':
+              show = (queryDateObj - fieldDateObj !== 0)
+              break
 
+              case '>':
+              show = (queryDateObj - fieldDateObj < 0)
+              break
 
-            if (queryDateObj == null) {
-              show = false;
-            } else {
-              switch (operator.value) {
-                case '=':
-                show = (queryDateObj - fieldDateObj === 0)
-                break
+              case '>=':
+              show = (queryDateObj - fieldDateObj <= 0)
+              break
 
-                case '!=':
-                show = (queryDateObj - fieldDateObj !== 0)
-                break
+              case '<':
+              show = (queryDateObj - fieldDateObj > 0)
+              break
 
-                case '>':
-                show = (queryDateObj - fieldDateObj < 0)
-                break
+              case '<=':
+              show = (queryDateObj - fieldDateObj >= 0)
+              break
 
-                case '>=':
-                show = (queryDateObj - fieldDateObj <= 0)
-                break
-
-                case '<':
-                show = (queryDateObj - fieldDateObj > 0)
-                break
-
-                case '<=':
-                show = (queryDateObj - fieldDateObj >= 0)
-                break
-
-                default:
-                break
-              }
+              default:
+              break
             }
           } else if (type === 'bool') {
             let fieldVal = false
@@ -162,7 +152,7 @@ export function getFilteredList (filterName, filters, list) {
             }
 
             let queryVal = false
-            if (queryValue === true || queryValue === 'true') {
+            if (value === true || value === 'true') {
               queryVal = true
             }
 
@@ -212,10 +202,10 @@ export function getFilteredList (filterName, filters, list) {
         if (!show) {
           return false // We return false if one of all queries doesn't match
         }
-      }
 
-      return show
-    })
+        return show
+      })
+    }
   }
 
   if (result !== undefined && sortField !== null) {
