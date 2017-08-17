@@ -7,7 +7,8 @@
 
 This project was bootstrapped with [nwb](https://github.com/insin/nwb)
 
-Firekit was created to help working with Firebase in React Projects that use Redux as state storage.
+
+You can try it out the [DEMO](https://tarikhuber.github.io/material-ui-filter/).
 
 
 ## Table of Contents

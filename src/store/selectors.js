@@ -8,9 +8,14 @@ export const ARRAY_TYPE = 'array';
 export const SELECT_FIELD_TYPE = 'select_field';
 
 
-function getValue(snapshot, fieldName, isCaseSensitive, type){
-  if (snapshot != null) {
-    let fieldValue = snapshot.val[fieldName];
+function getSourceValue(source){
+  return source;
+}
+
+
+function getValue(source, fieldName, isCaseSensitive, type){
+  if (source != null && getSourceValue(source)) {
+    let fieldValue = getSourceValue(source)[fieldName];
 
     if (typeof fieldValue === 'object' || fieldValue instanceof Object) {
       if(fieldValue.hasOwnProperty('label')){
@@ -76,8 +81,6 @@ export function selectQueryProps(query){
   let type='string';
   let isCaseSensitive=false;
   let isSet=false;
-
-  console.log(query);
 
   if(query!==undefined){
     value=query.value!==undefined?query.value:value;

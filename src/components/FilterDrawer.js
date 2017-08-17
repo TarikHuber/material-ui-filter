@@ -103,8 +103,6 @@ class FilterDrawer extends Component {
     const operator = this.getFirstOperator(val);
 
     const type=this.getFieldType(val);
-    console.log(val);
-    console.log(type);
 
     this.handleQueryChange(i, field, val, operator, type)
   }
@@ -133,25 +131,25 @@ class FilterDrawer extends Component {
     return (
       <Drawer  openSecondary={true} open={isOpen} >
         <AppBar
-          title={formatMessage?formatMessage({id:'filter'}):'filter'}
+          title={formatMessage?formatMessage({id:'filter'}):'Filter'}
           onLeftIconButtonTouchTap={this.handleCloseFilter}
           iconElementLeft={
             <IconButton
               tooltipPosition={'bottom-right'}
-              tooltip={formatMessage?formatMessage({id:'close_filter'}):'close_filter'}>
+              tooltip={formatMessage?formatMessage({id:'close_filter'}):'Close filter'}>
               <FontIcon className="material-icons" >chevron_right</FontIcon>
             </IconButton>
           }
         />
         <div>
           <div style={{display: 'flex', flexDirectiaron: 'row', alignItems: 'center'}}>
-            <Subheader >{formatMessage?formatMessage({id:'sorting'}):'sorting'}</Subheader>
+            <Subheader >{formatMessage?formatMessage({id:'sorting'}):'Sorting'}</Subheader>
             <div>
               <IconButton
                 style={{padding: 0}}
                 onClick={()=>{this.handleSortOrientationChange(!sortOrientation)}}
                 tooltipPosition={'bottom-left'}
-                tooltip={formatMessage?formatMessage({id:'change_sort_orientation'}):'change_sort_orientation'}>
+                tooltip={formatMessage?formatMessage({id:'change_sort_orientation'}):'Change orientation'}>
                 <FontIcon
                   className="material-icons"
                   color={sortOrientation===false?muiTheme.palette.accent1Color:muiTheme.palette.primary1Color}>
@@ -166,12 +164,10 @@ class FilterDrawer extends Component {
               <SuperSelectField
                 name='sortField'
                 value={sortField}
+                hintText={formatMessage?formatMessage({id:'select_field'}):'Select field'}
                 onChange={this.handleSortFieldChange}
                 fullWidth={true}
                 showAutocompleteThreshold={4}
-                hintTextAutocomplete={formatMessage?formatMessage({id: 'hint_autocomplete'}):'hint_autocomplete'}
-                noMatchFound={formatMessage?formatMessage({id: 'not_match_found'}):'not_match_found'}
-                hintText={formatMessage?formatMessage({id:'select_field'}):'select_field'}
                 style={{marginLeft: 15, marginRight: 10}}>
                 {fields.map((field)=>{
                   return <div
@@ -187,13 +183,13 @@ class FilterDrawer extends Component {
           </div>
           <Divider />
           <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-            <Subheader >{formatMessage?formatMessage({id:'filters'}):'filters'}</Subheader>
+            <Subheader >{formatMessage?formatMessage({id:'filters'}):'Filters'}</Subheader>
             <div>
               <IconButton
                 style={{padding: 0}}
                 onClick={this.handleAddFilterQuery}
                 tooltipPosition={'bottom-left'}
-                tooltip={formatMessage?formatMessage({id:'add_filter'}):'add_filter'}>
+                tooltip={formatMessage?formatMessage({id:'add_filter'}):'Add filter'}>
                 <FontIcon
                   className="material-icons"
                   color={muiTheme.palette.primary1Color}>
@@ -213,10 +209,8 @@ class FilterDrawer extends Component {
                   name='field'
                   value={field}
                   showAutocompleteThreshold={4}
-                  hintTextAutocomplete={formatMessage?formatMessage({id: 'hint_autocomplete'}):'hint_autocomplete'}
-                  noMatchFound={formatMessage?formatMessage({id: 'not_match_found'}):'not_match_found'}
                   onChange={(val)=>{this.handleFieldChange(i, 'field', val)}}
-                  hintText={formatMessage?formatMessage({id:'select_field'}):'select_field'}
+                  hintText={formatMessage?formatMessage({id:'select_field'}):'Select field'}
                   style={{marginLeft: 15, marginRight: 10 }}>
                   {fields.map((field)=>{
                     return <div
@@ -246,7 +240,7 @@ class FilterDrawer extends Component {
                     style={{padding: 0}}
                     onClick={()=>{this.handleQueryDelete(i)}}
                     tooltipPosition={'bottom-left'}
-                    tooltip={formatMessage?formatMessage({id:'delete_filter'}):'delete_filter'}>
+                    tooltip={formatMessage?formatMessage({id:'delete_filter'}):'Delete filter'}>
                     <FontIcon
                       className="material-icons"
                       color={muiTheme.palette.accent1Color}>
@@ -257,6 +251,7 @@ class FilterDrawer extends Component {
               </div>
 
               <SearchField
+                id={'searchField'}
                 queryIndex={i}
                 currentField={field}
                 query={query}
@@ -290,15 +285,15 @@ const mapStateToProps = (state, ownProps) => {
   const { fields, formatMessage } = ownProps;
 
   const  allOperators = [
-    {value: 'like', label: formatMessage?formatMessage({id: 'operator_like_label'}):'like'},
-    {value: 'notlike', label: formatMessage?formatMessage({id: 'operator_notlike_label'}):'not like'},
+    {value: 'like', label: formatMessage?formatMessage({id: 'operator_like_label'}):'Like'},
+    {value: 'notlike', label: formatMessage?formatMessage({id: 'operator_notlike_label'}):'Not like'},
     {value: '=', label: formatMessage?formatMessage({id: 'operator_equal_label'}):'='},
     {value: '!=', label: formatMessage?formatMessage({id: 'operator_notequal_label'}):'!='},
     {value: '>', label: '>'},
     {value: '>=', label: '>='},
     {value: '<', label: '<'},
     {value: '<=', label: '<='},
-    {value: 'novalue', label: formatMessage?formatMessage({id: 'operator_novalue_label'}):'no value'},
+    {value: 'novalue', label: formatMessage?formatMessage({id: 'operator_novalue_label'}):'No value'},
   ]
 
   const operators = [

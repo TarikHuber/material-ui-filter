@@ -64,10 +64,10 @@ export class OperatorField extends React.Component {
           name='operator'
           value={operator}
           showAutocompleteThreshold={4}
-          hintTextAutocomplete={formatMessage?formatMessage({id: 'hint_autocomplete'}):''}
-          noMatchFound={formatMessage?formatMessage({id: 'not_match_found'}):''}
+          hintTextAutocomplete={formatMessage?formatMessage({id: 'hint_autocomplete'}):'Select operator'}
+          noMatchFound={formatMessage?formatMessage({id: 'not_match_found'}):'No match found'}
           onChange={(val)=>{handleQueryChange(queryIndex, 'operator', val)}}
-          hintText={formatMessage?formatMessage({id:'select_field'}):''}
+          hintText={formatMessage?formatMessage({id:'select_operator'}):'Select operator'}
           style={{marginLeft: 15, marginRight: 10 }}>
           {
             divFields.map((divField) => divField)

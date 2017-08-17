@@ -5,6 +5,7 @@ import AppBar from 'material-ui/AppBar';
 import { FilterDrawer, filterSelectors, filterActions } from '../../src'
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
+import {List, ListItem} from 'material-ui/List';
 
 const source=[
   {
@@ -35,24 +36,36 @@ class App extends Component {
   render() {
     const {
       setFilterIsOpen,
+      list
     } = this.props
 
     const filterFields = [
-      { name: 'name', label: 'test' },
-      { name: 'vat', label: 'test2'  }
+      { name: 'name', label: 'Name' },
+      { name: 'email', label: 'Email'  }
     ];
 
     return (
 
       <div>
         <AppBar
-          title="Title"
+          title="material-ui-filter"
           iconElementRight={
             <IconButton onClick={()=>setFilterIsOpen('demo', true)}>
               <FontIcon className="material-icons">filter_list</FontIcon>
             </IconButton>
           }
         />
+
+          <List>
+            {list.map((item, i)=>{
+              return <ListItem
+                key={i}
+                primaryText={item.name}
+                secondaryText={item.email}
+              />
+            })}
+          </List>
+
 
         <FilterDrawer
           name={'demo'}
@@ -70,8 +83,8 @@ App.propTypes = {
 
 const mapStateToProps = (state) => {
   const {  filters } = state;
-  const { hasFilters } = filterSelectors.selectFilterProps('companies', filters);
-  const list = filterSelectors.getFilteredList('companies', filters, source);
+  const { hasFilters } = filterSelectors.selectFilterProps('demo', filters);
+  const list = filterSelectors.getFilteredList('demo', filters, source);
 
   return {
     hasFilters,
