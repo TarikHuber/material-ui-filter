@@ -11,17 +11,20 @@ const source=[
   {
     name: 'Tarik Huber',
     email: 'huber.tarik@gmail.com',
-    birthDate: '14.12.1987'
+    birthDate: '14.12.1987',
+    isAuthor: true
   },
   {
     name: 'Maximilian Pichler',
     email: 'maximilian.pichler97@gmail.com',
-    birthDate: '25.09.1997'
+    birthDate: '25.09.1997',
+    isAuthor: true
   },
   {
     name: 'Bill Gates',
     email: 'bill.gates@gmail.com',
-    birthDate: '28.10.1955'
+    birthDate: '28.10.1955',
+    isAuthor: false
   },
   {
     name: 'Mark Zuckerberg',
@@ -41,7 +44,9 @@ class App extends Component {
 
     const filterFields = [
       { name: 'name', label: 'Name' },
-      { name: 'email', label: 'Email'  }
+      { name: 'email', label: 'Email'  },
+      { name: 'birthDate', label: 'Birthdate', type: 'date'  },
+      { name: 'isAuthor', label: 'Author', type: 'bool'  },
     ];
 
     return (
@@ -61,7 +66,7 @@ class App extends Component {
               return <ListItem
                 key={i}
                 primaryText={item.name}
-                secondaryText={item.email}
+                secondaryText={`${item.email} ${item.birthDate} ${item.isAuthor?'Author':''}`}
               />
             })}
           </List>

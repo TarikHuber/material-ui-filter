@@ -44,7 +44,7 @@ describe('locale reducer', () => {
 
   it('should handle editFilterQuery', () => {
     expect(
-      reducer({demo: {queries: [{field: 'test'}, {field: 'test3'}]}}, actions.editFilterQuery('demo', 0,  {field: 'test2'}))
+      reducer({demo: {queries: [{field: 'test'}, {field: 'test3'}]}}, actions.editFilterQuery('demo', 0, {field: 'test2'}))
     ).toEqual({...initialState, ...{demo: {queries: [{field: 'test2'}, {field: 'test3'}]}}})
   })
 
@@ -53,5 +53,4 @@ describe('locale reducer', () => {
       reducer({demo: {queries: [{field: 'test'}, {field: 'test3'}]}}, actions.removeFilterQuery('demo', 0))
     ).toEqual({...initialState, ...{demo: {queries: [{field: 'test3'}]}}})
   })
-
 })

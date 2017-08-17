@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import * as filterSelectors from '../store/selectors';
 import Toggle from 'material-ui/Toggle';
 import TextField from 'material-ui/TextField';
@@ -8,7 +8,7 @@ import FontIcon from 'material-ui/FontIcon';
 import { formatDateToString, formatDateToObject } from '../utils/date'
 
 
-export class SearchField extends React.Component {
+export class SearchField extends Component {
 
   handleDateInputTextChange = (queryIndex, field,  val) => {
     const { handleQueryChange } = this.props;

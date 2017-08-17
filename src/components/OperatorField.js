@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import SuperSelectField from 'material-ui-superselectfield';
 import * as filterSelectors from '../store/selectors';
 
 
-export class OperatorField extends React.Component {
+export class OperatorField extends Component {
 
   getFieldType = (currentField) => {
     const { fields } = this.props;
