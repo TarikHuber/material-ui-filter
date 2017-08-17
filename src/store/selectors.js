@@ -1,4 +1,4 @@
-import { formatDateToString } from '../utils/date'
+import { formatDateToObject } from '../utils/date'
 
 export const STRING_TYPE = 'string'
 export const NUMBER_TYPE = 'number'
@@ -98,7 +98,7 @@ export function selectQueryProps (query) {
 
 export function getFilteredList (filterName, filters, list) {
   const { sortField, sortOrientation, queries } = selectFilterProps(filterName, filters)
-  let result = list
+  let result = [...list]
 
   if (list !== undefined && queries.length) {
     result = list.filter((row, i) => {
@@ -112,44 +112,48 @@ export function getFilteredList (filterName, filters, list) {
           let queryValue = value
 
           if (type === 'date') {
-            const yearMonthDayOptions = { year: 'numeric', month: '2-digit', day: '2-digit' }
-            const queryDateString = new Date(queryValue).toLocaleString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })
-            const fieldDateString = new Date(fieldValue).toLocaleString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })
+            const standardDateOptions = { month: '2-digit', day: '2-digit', year: 'numeric' }
+            const abcDateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' }
 
-            const queryDate = formatDateToString(queryDateString, yearMonthDayOptions, 'ko-KR') // ko-KR beacuse it is year-month-day
-            const fieldDate = formatDateToString(fieldDateString, yearMonthDayOptions, 'ko-KR')
+            const queryDateString = new Date(queryValue).toLocaleString('de-DE', abcDateOptions)
+            const queryDateObj = new Date(formatDateToObject(queryDateString, standardDateOptions, 'de-DE'))
+            const fieldDateObj = new Date(new Date(fieldValue).toLocaleString('en-US', standardDateOptions))
 
-            switch (operator.value) {
-              case '=':
-                if (queryDateString === '') {
-                  show = false
-                } else {
-                  show = (fieldDateString === queryDateString)
-                }
+            // console.log(fieldDateObj);
+            // console.log(queryDateObj);
+
+
+            if (queryDateObj == null) {
+              show = false;
+            } else {
+              switch (operator.value) {
+                case '=':
+                show = (queryDateObj - fieldDateObj === 0)
                 break
 
-              case '!=':
-                show = (fieldDateString !== queryDateString)
+                case '!=':
+                show = (queryDateObj - fieldDateObj !== 0)
                 break
 
-              case '>':
-                show = fieldDate > queryDate
+                case '>':
+                show = (queryDateObj - fieldDateObj < 0)
                 break
 
-              case '>=':
-                show = fieldDate >= queryDate
+                case '>=':
+                show = (queryDateObj - fieldDateObj <= 0)
                 break
 
-              case '<':
-                show = fieldDate < queryDate
+                case '<':
+                show = (queryDateObj - fieldDateObj > 0)
                 break
 
-              case '<=':
-                show = fieldDate <= queryDate
+                case '<=':
+                show = (queryDateObj - fieldDateObj >= 0)
                 break
 
-              default:
+                default:
                 break
+              }
             }
           } else if (type === 'bool') {
             let fieldVal = false
@@ -170,35 +174,35 @@ export function getFilteredList (filterName, filters, list) {
 
             switch (operator.value) {
               case 'like':
-                show = fieldValueString.indexOf(queryValueString) !== -1
-                break
+              show = fieldValueString.indexOf(queryValueString) !== -1
+              break
 
               case 'notlike':
-                show = fieldValueString.indexOf(queryValueString) === -1
-                break
+              show = fieldValueString.indexOf(queryValueString) === -1
+              break
 
               case '=':
-                show = fieldValueString === queryValueString
-                break
+              show = fieldValueString === queryValueString
+              break
 
               case '>':
-                show = fieldValueString.localeCompare(queryValueString) > 0
-                break
+              show = fieldValueString.localeCompare(queryValueString) > 0
+              break
 
               case '>=':
-                show = fieldValueString.localeCompare(queryValueString) >= 0
-                break
+              show = fieldValueString.localeCompare(queryValueString) >= 0
+              break
 
               case '<':
-                show = fieldValueString.localeCompare(queryValueString) < 0
-                break
+              show = fieldValueString.localeCompare(queryValueString) < 0
+              break
 
               case '<=':
-                show = fieldValueString.localeCompare(valueString) <= 0
-                break
+              show = fieldValueString.localeCompare(valueString) <= 0
+              break
 
               default:
-                break
+              break
             }
           }
         } else {

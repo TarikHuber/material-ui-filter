@@ -129,7 +129,7 @@ class FilterDrawer extends Component {
     const { isOpen, sortField, sortOrientation, queries } = filterSelectors.selectFilterProps(name, filters);
 
     return (
-      <Drawer  openSecondary={true} open={isOpen} >
+      <Drawer  openSecondary={true} open={isOpen} width={this.props.width}>
         <AppBar
           title={formatMessage?formatMessage({id:'filter'}):'Filter'}
           onLeftIconButtonTouchTap={this.handleCloseFilter}

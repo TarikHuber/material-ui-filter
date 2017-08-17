@@ -112,29 +112,25 @@ export class SearchField extends Component {
 
       else {  //string
         return (
-          <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-            <div >
-              <TextField
-                name='value'
-                onChange={(e, val)=>{handleQueryChange(queryIndex, 'value', val)}}
-                value={value}
-                style={{marginLeft: 15, marginRight: 10 }}
-                hintText={formatMessage?formatMessage({id:'enter_query_text'}):''}
-              />
-            </div>
-            <div>
-              <IconButton
-                style={{padding: 0}}
-                onClick={()=>{handleQueryChange(queryIndex, 'isCaseSensitive', !isCaseSensitive)}}
-                tooltipPosition={'bottom-left'}
-                tooltip={formatMessage?formatMessage({id:isCaseSensitive?'disable_case_sensitivity':'enable_case_sensitivity'}):''}>
-                <FontIcon
-                  className="material-icons"
-                  color={isCaseSensitive?muiTheme.palette.primary1Color:muiTheme.palette.disabledColor}>
-                  format_size
-                </FontIcon>
-              </IconButton>
-            </div>
+          <div style={{display: 'flex'}}>
+            <TextField
+              name='value'
+              onChange={(e, val)=>{handleQueryChange(queryIndex, 'value', val)}}
+              value={value}
+              style={{marginLeft: 15, marginRight: 10 }}
+              hintText={formatMessage?formatMessage({id:'enter_query_text'}):''}
+            />
+            <IconButton
+              style={{padding: 0}}
+              onClick={()=>{handleQueryChange(queryIndex, 'isCaseSensitive', !isCaseSensitive)}}
+              tooltipPosition={'bottom-left'}
+              tooltip={formatMessage?formatMessage({id:isCaseSensitive?'disable_case_sensitivity':'enable_case_sensitivity'}):''}>
+              <FontIcon
+                className="material-icons"
+                color={isCaseSensitive?muiTheme.palette.primary1Color:muiTheme.palette.disabledColor}>
+                format_size
+              </FontIcon>
+            </IconButton>
           </div>
         );
       }

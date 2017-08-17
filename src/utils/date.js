@@ -43,7 +43,6 @@ export function formatDateToObject (value, formatOptions, locale = 'de-DE') {
 
   if (!year) {
     year = currYear
-
     if (month < currMonth && month > 9) {
       year = currYear + 1
     } else if (month === currMonth && day < currDay) {
@@ -54,12 +53,10 @@ export function formatDateToObject (value, formatOptions, locale = 'de-DE') {
 
     if (intYear === 0) {
       year = '2000'
-    } else if (intYear < 100 && intYear >= 10) {
+    } else if (intYear < 100 && intYear >= 10 || year.length == 2) {
       year = '20' + year
     } else if (intYear < 10 && intYear >= 0) {
       year = '200' + year
-    } else if (intYear >= 10000 || intYear < 2000) {
-      error = true
     }
   }
 

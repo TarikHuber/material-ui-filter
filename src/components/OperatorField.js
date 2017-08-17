@@ -26,18 +26,16 @@ export class OperatorField extends Component {
     const { operator } = filterSelectors.selectQueryProps(query);
 
 
-    if(queryIndex===undefined ||
-       currentField===undefined ||
-       currentField===null ||
-       query===undefined ||
-       handleQueryChange===undefined ||
-       fields === undefined)
+    if(queryIndex == null ||
+       currentField == null ||
+       query == null ||
+       handleQueryChange == null ||
+       fields == null)
     {
-      return (<div></div>);
+      return <div></div>;
     }
 
     const fieldType = this.getFieldType(currentField);
-
     let divFields = [];
 
     operators.map((operator) => {
@@ -57,8 +55,8 @@ export class OperatorField extends Component {
       }
       return divFields;
     });
-    return (
 
+    return (
       <div style={{flexGrow: 1}}>
         <SuperSelectField
           name='operator'
@@ -75,9 +73,5 @@ export class OperatorField extends Component {
         </SuperSelectField>
       </div>
     );
-
-
   }
-
-
 }

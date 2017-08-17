@@ -9,7 +9,7 @@ This project was bootstrapped with [nwb](https://github.com/insin/nwb)
 
 
 You can try it out the [DEMO](https://tarikhuber.github.io/material-ui-filter/).
-
+(Demo data generated with: http://www.json-generator.com/).
 
 ## Table of Contents
 
