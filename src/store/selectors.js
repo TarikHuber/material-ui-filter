@@ -7,7 +7,7 @@ export const TIME_TYPE = 'time'
 export const ARRAY_TYPE = 'array'
 export const SELECT_FIELD_TYPE = 'select_field'
 
-function getValue (source, fieldName, getSourceValue, isCaseSensitive, type) {
+function getValue (source, fieldName, getSourceValue = fieldValue => fieldValue, isCaseSensitive, type) {
   if (source != null && getSourceValue(source)) {
     let fieldValue = getSourceValue(source)[fieldName]
 
@@ -91,7 +91,7 @@ export function selectQueryProps (query) {
   }
 }
 
-export function getFilteredList (filterName, filters, list, getSourceValue = fieldValue => fieldValue) {
+export function getFilteredList (filterName, filters, list, getSourceValue) {
   const { sortField, sortOrientation, queries } = selectFilterProps(filterName, filters)
   const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' }
   let result = [...list]
