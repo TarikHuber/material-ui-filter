@@ -9,7 +9,8 @@ This project was bootstrapped with [nwb](https://github.com/insin/nwb)
 
 Material UI filter is a filter drawer that lets you filter any Array.
 
-You can try it out in the [DEMO](https://tarikhuber.github.io/material-ui-filter/).
+Just try out the [DEMO](https://tarikhuber.github.io/material-ui-filter/).
+
 (Demo data generated with: http://www.json-generator.com/).
 
 ## Table of Contents
@@ -30,12 +31,18 @@ Material UI filter allows you to filter and sort arrays. The filter currently su
 
 We will use code snippets from the demo project to explain how to implement the filter:
 
-First you have to import the filter:
-```js
-import { FilterDrawer, filterSelectors, filterActions } from '../../src'
+The first step is to install the filter:
+
+```
+npm install material-ui-filter
 ```
 
-Then you have to add the filter component to the rest of your components in the render function.
+Then you have to import the filter:
+```js
+import { FilterDrawer, filterSelectors, filterActions } from 'material-ui-filter'
+```
+
+After that you have to add the filter component to the rest of your components in the render function.
 
 The filter takes a few props:
 - name:   Name of the filter
@@ -69,7 +76,8 @@ const filterFields = [
 
 
 In your mapStateToProps function you have to set the filter props and filter the array.
-The getFilteredList function takes a few parameters:
+
+The getFilteredList function takes the following parameters:
 - filter name
 - filters
 - array
@@ -81,7 +89,7 @@ const list = filterSelectors.getFilteredList('demo', filters, source /*, fieldVa
 ```
 
 
-And last but not least you have to add the reducer to your combineReducers function.
+And last but not least you have to add the reducer to your combineReducers function to make it work with your store.
 
 ```js
 import { filterReducer } from '../../src'
@@ -94,12 +102,13 @@ const reducers = combineReducers({
 export default reducers
 ```
 
-For more information just try out the [DEMO](https://tarikhuber.github.io/material-ui-filter/).
+For more information feel free to play around with the [DEMO](https://tarikhuber.github.io/material-ui-filter/).
 
 
 ## Contributors
 
 Tarik Huber (https://github.com/TarikHuber)
+
 Maximilian Pichler (https://github.com/MaximilianPichler)
 
 ## License
