@@ -8,8 +8,10 @@
 This project was bootstrapped with [nwb](https://github.com/insin/nwb)
 
 Material UI filter is a filter drawer that lets you filter any Array.
+You can sort the array and add as many filters as you please.
 
 Just try out the [DEMO](https://tarikhuber.github.io/material-ui-filter/).
+You can find the full code of the demo in the 'demo' folder above.
 
 (Demo data generated with: http://www.json-generator.com/).
 
