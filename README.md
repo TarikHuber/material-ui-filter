@@ -7,18 +7,100 @@
 
 This project was bootstrapped with [nwb](https://github.com/insin/nwb)
 
+Material UI filter is a filter drawer that lets you filter any Array.
 
-You can try it out the [DEMO](https://tarikhuber.github.io/material-ui-filter/).
+You can try it out in the [DEMO](https://tarikhuber.github.io/material-ui-filter/).
 (Demo data generated with: http://www.json-generator.com/).
 
 ## Table of Contents
 
 - [Features](#features)
+- [Implementation](#implementation)
+- [Contributors](#contributors)
 - [License](#license)
 
 ## Features
 
+Material UI filter allows you to filter and sort arrays. The filter currently supports
+- strings
+- dates
+- booleans
 
+## Implementation
+
+We will use code snippets from the demo project to explain how to implement the filter:
+
+First you have to import the filter:
+```js
+import { FilterDrawer, filterSelectors, filterActions } from '../../src'
+```
+
+Then you have to add the filter component to the rest of your components in the render function.
+
+The filter takes a few props:
+- name:   Name of the filter
+- fields: An array of the properties you want to filter/ sort by.
+          The array should consist of objects with at least a name property.
+          Additionally you can add a label and a datatype for each property.
+          The standard datatype is string. Other possible datatypes are bool and date.
+- locale, DateTimeFormat, okLabel, cancelLabel: Will be forwarded to the DatePicker.
+
+```js
+const filterFields = [
+  { name: 'name', label: 'Name' },
+  { name: 'email', label: 'Email' },
+  { name: 'registered', label: 'Registered', type: 'date' },
+  { name: 'isActive', label: 'Is Active', type: 'bool' },
+];
+```
+
+```js
+<FilterDrawer
+  name={'demo'}
+  fields={filterFields}
+
+  //localising the DatePicker
+  locale={'de-DE'}
+  DateTimeFormat={global.Intl.DateTimeFormat}
+  okLabel="OK"
+  cancelLabel="Abbrechen"
+/>
+```
+
+
+In your mapStateToProps function you have to set the filter props and filter the array.
+The getFilteredList function takes a few parameters:
+- filter name
+- filters
+- array
+- A function to get the array values (eg. If your array value is in an Object.)
+
+```js
+const { hasFilters } = filterSelectors.selectFilterProps('demo', filters);
+const list = filterSelectors.getFilteredList('demo', filters, source /*, fieldValue => fieldValue.val*/);
+```
+
+
+And last but not least you have to add the reducer to your combineReducers function.
+
+```js
+import { filterReducer } from '../../src'
+
+const reducers = combineReducers({
+  //your other reducers
+  filters: filterReducer
+})
+
+export default reducers
+```
+
+For more information just try out the [DEMO](https://tarikhuber.github.io/material-ui-filter/).
+
+
+## Contributors
+
+Tarik Huber (https://github.com/TarikHuber)
+Maximilian Pichler (https://github.com/MaximilianPichler)
 
 ## License
 

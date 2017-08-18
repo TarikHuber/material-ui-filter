@@ -50,9 +50,9 @@ class App extends Component {
 
     const filterFields = [
       { name: 'name', label: 'Name' },
-      { name: 'email', label: 'Email'  },
-      { name: 'registered', label: 'Registered', type: 'date'  },
-      { name: 'isActive', label: 'Is Active', type: 'bool'  },
+      { name: 'email', label: 'Email' },
+      { name: 'registered', label: 'Registered', type: 'date' },
+      { name: 'isActive', label: 'Is Active', type: 'bool' },
     ];
 
     return (
@@ -94,7 +94,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  const {  filters } = state;
+  const { filters } = state;
   const { hasFilters } = filterSelectors.selectFilterProps('demo', filters);
   const list = filterSelectors.getFilteredList('demo', filters, source /*, fieldValue => fieldValue.val*/);
 
