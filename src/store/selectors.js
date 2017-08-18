@@ -7,11 +7,7 @@ export const TIME_TYPE = 'time'
 export const ARRAY_TYPE = 'array'
 export const SELECT_FIELD_TYPE = 'select_field'
 
-function getSourceValue (source) {
-  return source
-}
-
-function getValue (source, fieldName, isCaseSensitive, type) {
+function getValue (source, fieldName, getSourceValue, isCaseSensitive, type) {
   if (source != null && getSourceValue(source)) {
     let fieldValue = getSourceValue(source)[fieldName]
 
@@ -22,8 +18,7 @@ function getValue (source, fieldName, isCaseSensitive, type) {
     }
 
     if (type === 'date') {
-      var options = {year: 'numeric', month: 'numeric', day: 'numeric' }
-      return String(fieldValue).toLocaleString('de-DE', options)
+      return new Date(fieldValue).setHours(0, 0, 0, 0)
     } else if (type === 'bool') {
       return fieldValue === undefined ? 'false' : fieldValue
     } else {
@@ -32,12 +27,12 @@ function getValue (source, fieldName, isCaseSensitive, type) {
   }
 }
 
-export function dynamicSort (sortField, sortOrientation) {
+export function dynamicSort (sortField, sortOrientation, getSourceValue) {
   var sortOrder = sortOrientation ? 1 : -1
 
   return (x, y) => {
-    var a = getValue(x, sortField)
-    var b = getValue(y, sortField)
+    var a = getValue(x, sortField, getSourceValue)
+    var b = getValue(y, sortField, getSourceValue)
     var result = (a < b) ? -1 : (a > b) ? 1 : 0
     return result * sortOrder
   }
@@ -96,9 +91,9 @@ export function selectQueryProps (query) {
   }
 }
 
-export function getFilteredList (filterName, filters, list) {
+export function getFilteredList (filterName, filters, list, getSourceValue = fieldValue => fieldValue) {
   const { sortField, sortOrientation, queries } = selectFilterProps(filterName, filters)
-  const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' }  
+  const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' }
   let result = [...list]
 
   if (list !== undefined && queries) {
@@ -106,44 +101,42 @@ export function getFilteredList (filterName, filters, list) {
       const { value, operator, field, isCaseSensitive, isSet, type } = selectQueryProps(query)
       const queryDateString = new Date(value).toLocaleString('de-DE', dateOptions)
       const queryDateObjWithTime = new Date(formatDateToObject(queryDateString, dateOptions, 'de-DE'))
-      const queryDateObj = new Date(queryDateObjWithTime).setHours(0,0,0,0)
+      const queryDateObj = new Date(queryDateObjWithTime).setHours(0, 0, 0, 0)
 
       result = result.filter((row, i) => {
         let show = false
 
         if (isSet) {
-          let fieldValue = getValue(row, field.value, isCaseSensitive, type)
+          let fieldValue = getValue(row, field.value, getSourceValue, isCaseSensitive, type)
 
           if (type === 'date') {
-            const fieldDateObj = new Date(fieldValue).setHours(0,0,0,0)
-
             switch (operator.value) {
               case '=':
-              show = (queryDateObj - fieldDateObj === 0)
-              break
+                show = (queryDateObj - fieldValue === 0)
+                break
 
               case '!=':
-              show = (queryDateObj - fieldDateObj !== 0)
-              break
+                show = (queryDateObj - fieldValue !== 0)
+                break
 
               case '>':
-              show = (queryDateObj - fieldDateObj < 0)
-              break
+                show = (queryDateObj - fieldValue < 0)
+                break
 
               case '>=':
-              show = (queryDateObj - fieldDateObj <= 0)
-              break
+                show = (queryDateObj - fieldValue <= 0)
+                break
 
               case '<':
-              show = (queryDateObj - fieldDateObj > 0)
-              break
+                show = (queryDateObj - fieldValue > 0)
+                break
 
               case '<=':
-              show = (queryDateObj - fieldDateObj >= 0)
-              break
+                show = (queryDateObj - fieldValue >= 0)
+                break
 
               default:
-              break
+                break
             }
           } else if (type === 'bool') {
             let fieldVal = false
@@ -164,35 +157,35 @@ export function getFilteredList (filterName, filters, list) {
 
             switch (operator.value) {
               case 'like':
-              show = fieldValueString.indexOf(queryValueString) !== -1
-              break
+                show = fieldValueString.indexOf(queryValueString) !== -1
+                break
 
               case 'notlike':
-              show = fieldValueString.indexOf(queryValueString) === -1
-              break
+                show = fieldValueString.indexOf(queryValueString) === -1
+                break
 
               case '=':
-              show = fieldValueString === queryValueString
-              break
+                show = fieldValueString === queryValueString
+                break
 
               case '>':
-              show = fieldValueString.localeCompare(queryValueString) > 0
-              break
+                show = fieldValueString.localeCompare(queryValueString) > 0
+                break
 
               case '>=':
-              show = fieldValueString.localeCompare(queryValueString) >= 0
-              break
+                show = fieldValueString.localeCompare(queryValueString) >= 0
+                break
 
               case '<':
-              show = fieldValueString.localeCompare(queryValueString) < 0
-              break
+                show = fieldValueString.localeCompare(queryValueString) < 0
+                break
 
               case '<=':
-              show = fieldValueString.localeCompare(valueString) <= 0
-              break
+                show = fieldValueString.localeCompare(valueString) <= 0
+                break
 
               default:
-              break
+                break
             }
           }
         } else {
@@ -209,7 +202,7 @@ export function getFilteredList (filterName, filters, list) {
   }
 
   if (result !== undefined && sortField !== null) {
-    result.sort(dynamicSort(sortField.value, sortOrientation))
+    result.sort(dynamicSort(sortField.value, sortOrientation, getSourceValue))
   }
 
   return result

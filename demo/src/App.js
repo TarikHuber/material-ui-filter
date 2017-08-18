@@ -77,6 +77,12 @@ class App extends Component {
         <FilterDrawer
           name={'demo'}
           fields={filterFields}
+
+          //localising the DatePicker
+          //locale={'de-DE'}
+          //DateTimeFormat={global.Intl.DateTimeFormat}
+          //okLabel="OK"
+          //cancelLabel="Abbrechen"
         />
       </div>
     );
@@ -90,7 +96,7 @@ App.propTypes = {
 const mapStateToProps = (state) => {
   const {  filters } = state;
   const { hasFilters } = filterSelectors.selectFilterProps('demo', filters);
-  const list = filterSelectors.getFilteredList('demo', filters, source);
+  const list = filterSelectors.getFilteredList('demo', filters, source /*, fieldValue => fieldValue.val*/);
 
   return {
     hasFilters,

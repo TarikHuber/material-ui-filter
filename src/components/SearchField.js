@@ -30,10 +30,21 @@ export class SearchField extends Component {
   }
 
 
-
   render() {
+    const {
+      muiTheme,
+      queryIndex,
+      currentField,
+      query,
+      formatMessage,
+      fields,
+      handleQueryChange,
+      DateTimeFormat,
+      locale,
+      okLabel,
+      cancelLabel
+    } = this.props;
 
-    const { muiTheme, queryIndex, currentField, query, formatMessage, fields, handleQueryChange } = this.props;
     const { value,  isCaseSensitive } = filterSelectors.selectQueryProps(query);
 
     if(queryIndex == null ||
@@ -59,23 +70,26 @@ export class SearchField extends Component {
         return (
 
           <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-            <div >
+            <div>
               <TextField
+                id={'dateInput'}
                 value={query.textValue?query.textValue:''}
                 onChange={(e, val)=>{this.handleDateInputTextChange(queryIndex, 'value', val)}}
-                style={{ marginLeft: 15, marginRight: 10 }}
+                style={{ marginLeft: 15, marginRight: 10, width: '100%'}}
                 hintText={formatMessage?formatMessage({id:'enter_query_text'}):''}
               />
             </div>
-            <div>
+            <div style={{display: 'flex'}}>
               <DatePicker
                 hintText='value'
                 tabIndex={-1}
                 autoOk={true}
                 style={{display: 'none'}}
                 onChange={(e, val)=>{this.handleDatePickerChange(queryIndex, 'value', val)}}
-                DateTimeFormat={global.Intl.DateTimeFormat}
-                locale={formatMessage?formatMessage({id: 'current_locale'}):''}
+                DateTimeFormat={DateTimeFormat}
+                locale={locale}
+                okLabel={okLabel}
+                cancelLabel={cancelLabel}
                 ref='value'
               />
               <IconButton

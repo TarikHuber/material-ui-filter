@@ -53,7 +53,7 @@ export function formatDateToObject (value, formatOptions, locale = 'de-DE') {
 
     if (intYear === 0) {
       year = '2000'
-    } else if (intYear < 100 && intYear >= 10 || year.length == 2) {
+    } else if ((intYear < 100 && intYear >= 10) || year.length === 2) {
       year = '20' + year
     } else if (intYear < 10 && intYear >= 0) {
       year = '200' + year

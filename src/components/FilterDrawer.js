@@ -107,8 +107,6 @@ class FilterDrawer extends Component {
     this.handleQueryChange(i, field, val, operator, type)
   }
 
-
-
   handleQueryDelete = (index) => {
     const { removeFilterQuery, name }= this.props;
 
@@ -123,7 +121,11 @@ class FilterDrawer extends Component {
       filters,
       name,
       fields,
-      operators
+      operators,
+      DateTimeFormat,
+      locale,
+      okLabel,
+      cancelLabel
     } = this.props;
 
     const { isOpen, sortField, sortOrientation, queries } = filterSelectors.selectFilterProps(name, filters);
@@ -255,10 +257,14 @@ class FilterDrawer extends Component {
                 queryIndex={i}
                 currentField={field}
                 query={query}
+                DateTimeFormat={DateTimeFormat}
+                locale={locale}
                 muiTheme={muiTheme}
                 formatMessage={formatMessage}
                 handleQueryChange={this.handleQueryChange}
                 fields={fields}
+                okLabel={okLabel}
+                cancelLabel={cancelLabel}
               />
 
               <Divider />
