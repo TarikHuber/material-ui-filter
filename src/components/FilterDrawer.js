@@ -41,7 +41,7 @@ class FilterDrawer extends Component {
     addFilterQuery(name, {operator: {value: 'like', label: formatMessage?formatMessage({id: 'operator_like_label'}):'operator_like_label'}});
   }
 
-  handleQueryChange = (index, field, value, operator, type) => {
+  handleQueryChange = (index, field, value, operator) => {
     const { editFilterQuery, name } = this.props;
 
     let change={
@@ -50,10 +50,6 @@ class FilterDrawer extends Component {
 
     if(operator!==undefined){
       change.operator=operator
-    }
-
-    if(type!==undefined){
-      change.type=type
     }
 
     editFilterQuery(name, index, change);
@@ -100,11 +96,11 @@ class FilterDrawer extends Component {
   }
 
   handleFieldChange = (i, field, val) => {
+    const { editFilterQuery, name } = this.props;
     const operator = this.getFirstOperator(val);
-
     const type=this.getFieldType(val);
 
-    this.handleQueryChange(i, field, val, operator, type)
+    editFilterQuery(name, i, {[field]: val, type, operator, value: ''});
   }
 
   handleQueryDelete = (index) => {

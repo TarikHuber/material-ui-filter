@@ -57,10 +57,12 @@ export class SearchField extends Component {
       }
 
       let fieldType = '';
+      let fieldLabel = '';
 
       fields.map((field) => {
         if(field.name === currentField.value) {
           fieldType = field.type;
+          fieldLabel = field.label;
         }
         return field;
       });
@@ -70,15 +72,13 @@ export class SearchField extends Component {
         return (
 
           <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-            <div>
-              <TextField
-                id={'dateInput'}
-                value={query.textValue?query.textValue:''}
-                onChange={(e, val)=>{this.handleDateInputTextChange(queryIndex, 'value', val)}}
-                style={{ marginLeft: 15, marginRight: 10, width: '100%'}}
-                hintText={formatMessage?formatMessage({id:'enter_query_text'}):''}
-              />
-            </div>
+            <TextField
+              id={'dateInput'}
+              value={query.textValue?query.textValue:''}
+              onChange={(e, val)=>{this.handleDateInputTextChange(queryIndex, 'value', val)}}
+              style={{ marginLeft: 15, marginRight: 10, flexGrow: 1}}
+              hintText={formatMessage?formatMessage({id:'enter_query_text'}):''}
+            />
             <div style={{display: 'flex'}}>
               <DatePicker
                 hintText='value'
@@ -112,10 +112,10 @@ export class SearchField extends Component {
 
       if(fieldType === "bool") {
         return (
-          <div style={{paddingLeft: '10px'}}>
+          <div style={{paddingLeft: 15, paddingRight: 55}}>
             <br />
             <Toggle
-              style={{width: '200px'}}
+              label={fieldLabel}
               onToggle={(e, val)=>{handleQueryChange(queryIndex, 'value', val)}}
               value={value}
             />
