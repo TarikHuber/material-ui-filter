@@ -94,9 +94,14 @@ export function selectQueryProps (query) {
 export function getFilteredList (filterName, filters, list, getSourceValue) {
   const { sortField, sortOrientation, queries } = selectFilterProps(filterName, filters)
   const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' }
+
+  if (list == null || list.length < 1) {
+    return []
+  }
+
   let result = [...list]
 
-  if (list !== undefined && queries) {
+  if (queries) {
     for (let query of queries) {
       const { value, operator, field, isCaseSensitive, isSet, type } = selectQueryProps(query)
       const queryDateString = new Date(value).toLocaleString('de-DE', dateOptions)
