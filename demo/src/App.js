@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, dispatch } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import { FilterDrawer, filterSelectors, filterActions } from '../../src'
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import { List, ListItem } from 'material-ui/List';
+import TextField from 'material-ui/TextField';
 import source from '../src/data.json';
 import ReactList from 'react-list';
 import Divider from 'material-ui/Divider';
@@ -45,7 +46,8 @@ class App extends Component {
   render() {
     const {
       setFilterIsOpen,
-      list
+      list,
+      setSearch
     } = this.props
 
     const filterFields = [
@@ -58,11 +60,22 @@ class App extends Component {
     return (
       <div>
         <AppBar
+          iconElementLeft={<div></div>}
           title={`material-ui-filter (${source.length} entries)`}
           iconElementRight={
-            <IconButton onClick={()=>setFilterIsOpen('demo', true)}>
-              <FontIcon className="material-icons">filter_list</FontIcon>
-            </IconButton>
+            <div>
+              <TextField
+                style={{
+                  marginRight: 50
+                }}
+                onChange={(e, newVal) => {
+                setSearch('demo', 'name', newVal)
+              }}/>
+
+              <IconButton onClick={()=>setFilterIsOpen('demo', true)}>
+                <FontIcon className="material-icons">filter_list</FontIcon>
+              </IconButton>
+            </div>
           }
         />
 
@@ -106,5 +119,6 @@ const mapStateToProps = (state) => {
 
 
 export default connect(
-  mapStateToProps, { ...filterActions }
+  mapStateToProps,
+  { ...filterActions }
 )(App);

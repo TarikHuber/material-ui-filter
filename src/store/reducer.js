@@ -1,12 +1,12 @@
 import * as types from './types'
 
 function query (query, action) {
-  const {payload} = action
+  const { payload } = action
 
   switch (action.type) {
     case types.ON_ADD_FILTER_QUERY:
     case types.ON_EDIT_FILTER_QUERY:
-      return { ...query, ...payload}
+      return { ...query, ...payload }
 
     default:
       return query
@@ -14,7 +14,7 @@ function query (query, action) {
 }
 
 function queries (queries = [], action) {
-  const {index} = action
+  const { index } = action
 
   switch (action.type) {
     case types.ON_ADD_FILTER_QUERY:
@@ -36,8 +36,21 @@ function queries (queries = [], action) {
   }
 }
 
+function search (search = {}, action) {
+  const { fieldName, payload } = action
+
+  switch (action.type) {
+    case types.ON_SET_SEARCH:
+      return { ...search, fieldName, value: payload }
+
+    default:
+      return search
+  }
+}
+
 function filter (filter = {}, action) {
   const { payload } = action
+
   switch (action.type) {
     case types.ON_FILTER_OPEN_CHANGED:
     case types.ON_FILTER_SORT_FIELD_CHANGED:
@@ -48,6 +61,9 @@ function filter (filter = {}, action) {
     case types.ON_EDIT_FILTER_QUERY:
     case types.ON_REMOVE_FILTER_QUERY:
       return {...filter, queries: queries(filter.queries, action)}
+
+    case types.ON_SET_SEARCH:
+      return {...filter, search: search(filter.search, action)}
 
     default:
       return filter
@@ -63,6 +79,7 @@ export default function filters (state = {}, action) {
     case types.ON_ADD_FILTER_QUERY:
     case types.ON_EDIT_FILTER_QUERY:
     case types.ON_REMOVE_FILTER_QUERY:
+    case types.ON_SET_SEARCH:
       return {...state, [name]: filter(state[name], action)}
 
     default:

@@ -4,3 +4,4 @@ export const ON_FILTER_SORT_ORIENTATION_CHANGED = 'filters@ON_FILTER_SORT_ORIENT
 export const ON_ADD_FILTER_QUERY = 'filters@ON_ADD_FILTER_QUERY'
 export const ON_EDIT_FILTER_QUERY = 'filters@ON_EDIT_FILTER_QUERY'
 export const ON_REMOVE_FILTER_QUERY = 'filters@ON_REMOVE_FILTER_QUERY'
+export const ON_SET_SEARCH = 'filters@ON_SET_SEARCH'

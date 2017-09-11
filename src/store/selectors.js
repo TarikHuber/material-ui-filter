@@ -22,7 +22,7 @@ function getValue (source, fieldName, getSourceValue = fieldValue => fieldValue,
     } else if (type === 'bool') {
       return fieldValue === undefined ? 'false' : fieldValue
     } else {
-      return isCaseSensitive === true ? fieldValue : String(fieldValue).toUpperCase()
+      return isCaseSensitive === true ? String(fieldValue) : String(fieldValue).toUpperCase()
     }
   }
 }
@@ -44,6 +44,8 @@ export function selectFilterProps (filterName, filters) {
   let sortField = null
   let sortOrientation = true
   let queries = []
+  let searchField = null
+  let searchValue = null
 
   if (filters !== undefined && filters[filterName] !== undefined) {
     const filter = filters[filterName]
@@ -53,6 +55,8 @@ export function selectFilterProps (filterName, filters) {
     sortField = filter.sortField !== undefined ? filter.sortField : sortField
     sortOrientation = filter.sortOrientation !== undefined ? filter.sortOrientation : sortOrientation
     queries = filter.queries !== undefined ? filter.queries : queries
+    searchField = filter.search !== undefined ? filter.search.fieldName : searchField
+    searchValue = filter.search !== undefined ? filter.search.value : searchValue
   }
 
   return {
@@ -60,7 +64,9 @@ export function selectFilterProps (filterName, filters) {
     hasFilters,
     sortField,
     sortOrientation,
-    queries
+    queries,
+    searchField,
+    searchValue
   }
 }
 
@@ -92,7 +98,7 @@ export function selectQueryProps (query) {
 }
 
 export function getFilteredList (filterName, filters, list, getSourceValue) {
-  const { sortField, sortOrientation, queries } = selectFilterProps(filterName, filters)
+  const { sortField, sortOrientation, queries, searchField, searchValue } = selectFilterProps(filterName, filters)
   const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' }
 
   if (list == null || list.length < 1) {
@@ -117,31 +123,31 @@ export function getFilteredList (filterName, filters, list, getSourceValue) {
           if (type === 'date') {
             switch (operator.value) {
               case '=':
-                show = (queryDateObj - fieldValue === 0)
-                break
+              show = (queryDateObj - fieldValue === 0)
+              break
 
               case '!=':
-                show = (queryDateObj - fieldValue !== 0)
-                break
+              show = (queryDateObj - fieldValue !== 0)
+              break
 
               case '>':
-                show = (queryDateObj - fieldValue < 0)
-                break
+              show = (queryDateObj - fieldValue < 0)
+              break
 
               case '>=':
-                show = (queryDateObj - fieldValue <= 0)
-                break
+              show = (queryDateObj - fieldValue <= 0)
+              break
 
               case '<':
-                show = (queryDateObj - fieldValue > 0)
-                break
+              show = (queryDateObj - fieldValue > 0)
+              break
 
               case '<=':
-                show = (queryDateObj - fieldValue >= 0)
-                break
+              show = (queryDateObj - fieldValue >= 0)
+              break
 
               default:
-                break
+              break
             }
           } else if (type === 'bool') {
             let fieldVal = false
@@ -162,35 +168,35 @@ export function getFilteredList (filterName, filters, list, getSourceValue) {
 
             switch (operator.value) {
               case 'like':
-                show = fieldValueString.indexOf(queryValueString) !== -1
-                break
+              show = fieldValueString.indexOf(queryValueString) !== -1
+              break
 
               case 'notlike':
-                show = fieldValueString.indexOf(queryValueString) === -1
-                break
+              show = fieldValueString.indexOf(queryValueString) === -1
+              break
 
               case '=':
-                show = fieldValueString === queryValueString
-                break
+              show = fieldValueString === queryValueString
+              break
 
               case '>':
-                show = fieldValueString.localeCompare(queryValueString) > 0
-                break
+              show = fieldValueString.localeCompare(queryValueString) > 0
+              break
 
               case '>=':
-                show = fieldValueString.localeCompare(queryValueString) >= 0
-                break
+              show = fieldValueString.localeCompare(queryValueString) >= 0
+              break
 
               case '<':
-                show = fieldValueString.localeCompare(queryValueString) < 0
-                break
+              show = fieldValueString.localeCompare(queryValueString) < 0
+              break
 
               case '<=':
-                show = fieldValueString.localeCompare(valueString) <= 0
-                break
+              show = fieldValueString.localeCompare(valueString) <= 0
+              break
 
               default:
-                break
+              break
             }
           }
         } else {
@@ -204,6 +210,14 @@ export function getFilteredList (filterName, filters, list, getSourceValue) {
         return show
       })
     }
+  }
+
+  //search
+  if(searchField != null && searchValue != null && searchValue !== '') {
+    result = result.filter((row, i) => {
+      let fieldValue = getValue(row, searchField)
+      return fieldValue.indexOf(String(searchValue).toUpperCase()) !== -1
+    })
   }
 
   if (result !== undefined && sortField !== null) {
