@@ -215,7 +215,7 @@ export function getFilteredList (filterName, filters, list, getSourceValue) {
   //search
   if(searchField != null && searchValue != null && searchValue !== '') {
     result = result.filter((row, i) => {
-      let fieldValue = getValue(row, searchField)
+      let fieldValue = getValue(row, searchField, getSourceValue)
       return fieldValue.indexOf(String(searchValue).toUpperCase()) !== -1
     })
   }
