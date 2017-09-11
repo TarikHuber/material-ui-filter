@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect, dispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import { FilterDrawer, filterSelectors, filterActions } from '../../src'
 import FontIcon from 'material-ui/FontIcon';
