@@ -87,7 +87,7 @@ class App extends Component {
                       style={{width: '100%'}}
                       underlineShow={false}
                       onChange={(e, newVal) => {
-                        setSearch('demo', 'name', newVal)
+                        setSearch('demo', newVal)
                       }}
                       hintText={'Search'}
                     />

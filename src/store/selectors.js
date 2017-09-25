@@ -213,7 +213,7 @@ export function getFilteredList (filterName, filters, list, getSourceValue) {
   }
 
   //search
-  if(searchField != null && searchValue != null && searchValue !== '') {
+  if(searchValue != null && searchValue !== '') {
     result = result.filter((row, i) => {
       let found = false
 

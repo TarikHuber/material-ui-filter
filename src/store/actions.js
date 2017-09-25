@@ -33,10 +33,9 @@ export function addFilterQuery (name, query) {
 }
 
 
-export function setSearch (name, fieldName, search) {
+export function setSearch (name, search) {
   return {
     type: types.ON_SET_SEARCH,
-    fieldName,
     name,
     payload: search
   }
