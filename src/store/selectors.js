@@ -219,8 +219,10 @@ export function getFilteredList (filterName, filters, list, getSourceValue) {
 
       const rowKeys = Object.keys(row)
       rowKeys.forEach(key => {
-        let fieldValue = getValue(row, key, getSourceValue)
-        found = found || fieldValue.indexOf(String(searchValue).toUpperCase()) !== -1
+        if (row[key] != null && (typeof row[key] === 'string' || myVar instanceof String)) {
+          let fieldValue = getValue(row, key, getSourceValue)
+          found = found || fieldValue.indexOf(String(searchValue).toUpperCase()) !== -1
+        }
       })
 
       return found
