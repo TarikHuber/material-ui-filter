@@ -44,7 +44,6 @@ export function selectFilterProps (filterName, filters) {
   let sortField = null
   let sortOrientation = true
   let queries = []
-  let searchField = null
   let searchValue = null
 
   if (filters !== undefined && filters[filterName] !== undefined) {
@@ -55,7 +54,6 @@ export function selectFilterProps (filterName, filters) {
     sortField = filter.sortField !== undefined ? filter.sortField : sortField
     sortOrientation = filter.sortOrientation !== undefined ? filter.sortOrientation : sortOrientation
     queries = filter.queries !== undefined ? filter.queries : queries
-    searchField = filter.search !== undefined ? filter.search.fieldName : searchField
     searchValue = filter.search !== undefined ? filter.search.value : searchValue
   }
 
@@ -65,7 +63,6 @@ export function selectFilterProps (filterName, filters) {
     sortField,
     sortOrientation,
     queries,
-    searchField,
     searchValue
   }
 }
@@ -98,7 +95,7 @@ export function selectQueryProps (query) {
 }
 
 export function getFilteredList (filterName, filters, list, getSourceValue) {
-  const { sortField, sortOrientation, queries, searchField, searchValue } = selectFilterProps(filterName, filters)
+  const { sortField, sortOrientation, queries, searchValue } = selectFilterProps(filterName, filters)
   const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' }
 
   if (list == null || list.length < 1) {
@@ -219,9 +216,9 @@ export function getFilteredList (filterName, filters, list, getSourceValue) {
 
       const rowKeys = Object.keys(row)
       rowKeys.forEach(key => {
-        if (row[key] != null && (typeof row[key] === 'string' || myVar instanceof String)) {
-          let fieldValue = getValue(row, key, getSourceValue)
-          found = found || fieldValue.indexOf(String(searchValue).toUpperCase()) !== -1
+        const value = getValue(row, key, getSourceValue)
+        if (row[key] != null && (typeof value === 'string' || value instanceof String)) {
+          found = found || value.indexOf(String(searchValue).toUpperCase()) !== -1
         }
       })
 
