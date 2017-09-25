@@ -37,11 +37,11 @@ function queries (queries = [], action) {
 }
 
 function search (search = {}, action) {
-  const { fieldName, payload } = action
+  const { payload } = action
 
   switch (action.type) {
     case types.ON_SET_SEARCH:
-      return { ...search, fieldName, value: payload }
+      return { ...search, value: payload }
 
     default:
       return search

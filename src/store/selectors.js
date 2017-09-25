@@ -212,17 +212,7 @@ export function getFilteredList (filterName, filters, list, getSourceValue) {
   //search
   if(searchValue != null && searchValue !== '') {
     result = result.filter((row, i) => {
-      let found = false
-
-      const rowKeys = Object.keys(row)
-      rowKeys.forEach(key => {
-        const value = getValue(row, key, getSourceValue)
-        if (row[key] != null && (typeof value === 'string' || value instanceof String)) {
-          found = found || value.indexOf(String(searchValue).toUpperCase()) !== -1
-        }
-      })
-
-      return found
+      return JSON.stringify(row).toUpperCase().indexOf(String(searchValue).toUpperCase()) !== -1
     })
   }
 
