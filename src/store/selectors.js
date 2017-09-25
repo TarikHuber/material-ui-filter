@@ -215,8 +215,15 @@ export function getFilteredList (filterName, filters, list, getSourceValue) {
   //search
   if(searchField != null && searchValue != null && searchValue !== '') {
     result = result.filter((row, i) => {
-      let fieldValue = getValue(row, searchField, getSourceValue)
-      return fieldValue.indexOf(String(searchValue).toUpperCase()) !== -1
+      let found = false
+
+      const rowKeys = Object.keys(row)
+      rowKeys.forEach(key => {
+        let fieldValue = getValue(row, key, getSourceValue)
+        found = found || fieldValue.indexOf(String(searchValue).toUpperCase()) !== -1
+      })
+
+      return found
     })
   }
 
