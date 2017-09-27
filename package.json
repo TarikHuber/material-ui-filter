@@ -1,6 +1,6 @@
 {
   "name": "material-ui-filter",
-  "version": "0.1.20",
+  "version": "0.1.21",
   "description": "Material UI Drawer for filtering local arrays",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -23,22 +23,24 @@
     "react-list": "^0.8.6"
   },
   "peerDependencies": {
-    "react": "15.x"
+    "react": "15.x || 16.x",
+    "react-dom": "15.x || 16.x"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
     "material-ui": "^0.19.0",
     "material-ui-superselectfield": "^1.5.5",
-    "nwb": "0.18.x",
+    "nwb": "^0.18.9",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "uglify-js": "^2.8.29"
   },
   "author": "Tarik Huber",
-  "homepage": "",
+  "homepage": "https://tarikhuber.github.io/material-ui-filter/",
   "license": "MIT",
   "repository": "https://github.com/TarikHuber/material-ui-filter",
   "keywords": [

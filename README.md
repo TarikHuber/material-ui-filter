@@ -115,7 +115,7 @@ Maximilian Pichler (https://github.com/MaximilianPichler)
 
 ## License
 
-MIT @TarikHuber
+MIT @TarikHuber & @MaximilianPichler
 
 [travis-image]: https://travis-ci.org/TarikHuber/material-ui-filter.svg?branch=master
 [travis-url]: https://travis-ci.org/TarikHuber/material-ui-filter
