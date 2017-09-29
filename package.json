@@ -20,12 +20,12 @@
     "gpublish": "nwb build-demo && gh-pages -d demo/dist"
   },
   "dependencies": {
-    "material-ui-selectfield": "^1.0.11",
-    "react-list": "^0.8.6"
   },
   "peerDependencies": {
     "react": "15.x || 16.x",
-    "react-dom": "15.x || 16.x"
+    "react-dom": "15.x || 16.x",
+    "material-ui-selectfield": "^1.0.11",
+    "react-list": "^0.8.6"
   },
   "devDependencies": {
     "gh-pages": "^1.0.0",
