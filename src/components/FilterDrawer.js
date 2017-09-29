@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SuperSelectField from 'material-ui-superselectfield';
+import SelectField from 'material-ui-selectfield';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import muiThemeable from 'material-ui/styles/muiThemeable';
@@ -159,7 +159,7 @@ class FilterDrawer extends Component {
 
           <div >
             <div>
-              <SuperSelectField
+              <SelectField
                 name='sortField'
                 value={sortField}
                 hintText={formatMessage?formatMessage({id:'select_field'}):'Select field'}
@@ -175,7 +175,7 @@ class FilterDrawer extends Component {
                     {field.label}
                   </div>
                 })}
-              </SuperSelectField>
+              </SelectField>
               <br/>
             </div>
           </div>
@@ -203,7 +203,7 @@ class FilterDrawer extends Component {
             return  <div key={i}>
               <div>
                 <br/>
-                <SuperSelectField
+                <SelectField
                   name='field'
                   value={field}
                   showAutocompleteThreshold={4}
@@ -218,7 +218,7 @@ class FilterDrawer extends Component {
                       {field.label}
                     </div>
                   })}
-                </SuperSelectField>
+                </SelectField>
               </div>
               <br/>
               <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>

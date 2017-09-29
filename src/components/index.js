@@ -1,1 +1,1 @@
-export { default as FilterDrawer } from './FilterDrawer'
+export default from './FilterDrawer'

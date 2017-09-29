@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SuperSelectField from 'material-ui-superselectfield';
+import SelectField from 'material-ui-selectfield';
 import * as filterSelectors from '../store/selectors';
 
 
@@ -58,7 +58,7 @@ export class OperatorField extends Component {
 
     return (
       <div style={{flexGrow: 1}}>
-        <SuperSelectField
+        <SelectField
           name='operator'
           value={operator}
           showAutocompleteThreshold={4}
@@ -70,7 +70,7 @@ export class OperatorField extends Component {
           {
             divFields.map((divField) => divField)
           }
-        </SuperSelectField>
+        </SelectField>
       </div>
     );
   }
