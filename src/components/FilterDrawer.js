@@ -1,7 +1,7 @@
 import React, { Component }  from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SelectField from 'material-ui-selectfield';
+import SelectField from 'material-ui-superselectfield';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import muiThemeable from 'material-ui/styles/muiThemeable';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SelectField from 'material-ui-selectfield';
+import SelectField from 'material-ui-superselectfield';
 import * as filterSelectors from '../store/selectors';
 
 
@@ -11,7 +11,7 @@ export class OperatorField extends Component {
     let fieldType = '';
 
     fields.map((field) => {
-      if(field.name === currentField.value) {
+      if (field.name === currentField.value) {
         fieldType = field.type;
       }
       return field;
@@ -26,12 +26,11 @@ export class OperatorField extends Component {
     const { operator } = filterSelectors.selectQueryProps(query);
 
 
-    if(queryIndex == null ||
-       currentField == null ||
-       query == null ||
-       handleQueryChange == null ||
-       fields == null)
-    {
+    if (queryIndex == null ||
+      currentField == null ||
+      query == null ||
+      handleQueryChange == null ||
+      fields == null) {
       return <div></div>;
     }
 
@@ -39,8 +38,8 @@ export class OperatorField extends Component {
     let divFields = [];
 
     operators.map((operator) => {
-      if(operator.type === fieldType || (operator.type === 'string' && fieldType === undefined)) {
-        operator.operators.map((op)=>{
+      if (operator.type === fieldType || (operator.type === 'string' && fieldType === undefined)) {
+        operator.operators.map((op) => {
           return (
             divFields.push(
               <div
@@ -57,16 +56,16 @@ export class OperatorField extends Component {
     });
 
     return (
-      <div style={{flexGrow: 1}}>
+      <div style={{ flexGrow: 1 }}>
         <SelectField
           name='operator'
           value={operator}
           showAutocompleteThreshold={4}
-          hintTextAutocomplete={formatMessage?formatMessage({id: 'hint_autocomplete'}):'Select operator'}
-          noMatchFound={formatMessage?formatMessage({id: 'not_match_found'}):'No match found'}
-          onChange={(val)=>{handleQueryChange(queryIndex, 'operator', val)}}
-          hintText={formatMessage?formatMessage({id:'select_operator'}):'Select operator'}
-          style={{marginLeft: 15, marginRight: 10 }}>
+          hintTextAutocomplete={formatMessage ? formatMessage({ id: 'hint_autocomplete' }) : 'Select operator'}
+          noMatchFound={formatMessage ? formatMessage({ id: 'not_match_found' }) : 'No match found'}
+          onChange={(val) => { handleQueryChange(queryIndex, 'operator', val) }}
+          hintText={formatMessage ? formatMessage({ id: 'select_operator' }) : 'Select operator'}
+          style={{ marginLeft: 15, marginRight: 10 }}>
           {
             divFields.map((divField) => divField)
           }

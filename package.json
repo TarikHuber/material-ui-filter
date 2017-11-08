@@ -23,20 +23,25 @@
   "peerDependencies": {
     "react": "15.x || 16.x",
     "react-dom": "15.x || 16.x",
-    "material-ui-selectfield": "^1.0.11",
+    "material-ui-superselectfield": "^1.0.11",
     "react-list": "^0.8.6"
   },
   "devDependencies": {
+    "babel-polyfill": "^6.26.0",
     "gh-pages": "^1.0.0",
     "material-ui": "^0.19.4",
+    "material-ui-superselectfield": "^1.7.0",
+    "mocha": "^4.0.1",
     "nwb": "^0.19.1",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-list": "^0.8.8",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
-    "uglify-js": "^3.1.8"
+    "uglify-js": "^3.1.8",
+    "webpack": "^3.8.1"
   },
   "author": "Tarik Huber",
   "homepage": "https://tarikhuber.github.io/material-ui-filter/",
