@@ -27,6 +27,7 @@ deploy:
       condition: $TRAVIS_PULL_REQUEST = false
 
   - provider: npm
+    skip_cleanup: true
     email: $NPM_EMAIL
     api_key: $NPM_TOKEN
     on:
