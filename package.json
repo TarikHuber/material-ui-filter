@@ -1,6 +1,6 @@
 {
   "name": "material-ui-filter",
-  "version": "0.1.36",
+  "version": "0.1.37",
   "description": "Material UI Drawer for filtering local arrays",
   "main": "lib/index.js",
   "module": "es/index.js",
