@@ -1,16 +1,16 @@
-import React, { Component }  from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import SelectField from 'material-ui-superselectfield';
-import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
-import muiThemeable from 'material-ui/styles/muiThemeable';
-import * as filterActions from '../store/actions';
-import * as filterSelectors from '../store/selectors';
-import Drawer from 'material-ui/Drawer';
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import SelectField from 'material-ui-superselectfield'
+import Subheader from 'material-ui/Subheader'
+import Divider from 'material-ui/Divider'
+import muiThemeable from 'material-ui/styles/muiThemeable'
+import * as filterActions from '../store/actions'
+import * as filterSelectors from '../store/selectors'
+import Drawer from 'material-ui/Drawer'
+import AppBar from 'material-ui/AppBar'
+import IconButton from 'material-ui/IconButton'
+import FontIcon from 'material-ui/FontIcon'
 import { OperatorField } from './OperatorField'
 import { SearchField } from './SearchField'
 
@@ -38,18 +38,18 @@ class FilterDrawer extends Component {
   handleAddFilterQuery = () => {
     const { addFilterQuery, name, formatMessage } = this.props;
 
-    addFilterQuery(name, {operator: {value: 'like', label: formatMessage?formatMessage({id: 'operator_like_label'}):'operator_like_label'}});
+    addFilterQuery(name, { operator: { value: 'like', label: formatMessage ? formatMessage({ id: 'operator_like_label' }) : 'operator_like_label' } });
   }
 
   handleQueryChange = (index, field, value, operator) => {
     const { editFilterQuery, name } = this.props;
 
-    let change={
+    let change = {
       [field]: value
     }
 
-    if(operator!==undefined){
-      change.operator=operator
+    if (operator !== undefined) {
+      change.operator = operator
     }
 
     editFilterQuery(name, index, change);
@@ -66,8 +66,8 @@ class FilterDrawer extends Component {
     let fieldType = 'string';
 
     fields.map((field) => {
-      if(field.name === currentField.value) {
-        fieldType = field.type?field.type:'string';
+      if (field.name === currentField.value) {
+        fieldType = field.type ? field.type : 'string';
       }
       return field;
     });
@@ -79,14 +79,14 @@ class FilterDrawer extends Component {
     const { operators } = this.props;
     const fieldType = this.getFieldType(currentField);
 
-    if(!fieldType) {
+    if (!fieldType) {
       return undefined;
     }
 
     let op = undefined;
 
     operators.map((operator) => {
-      if(operator.type === fieldType || (operator.type === 'string' && fieldType === undefined)) {
+      if (operator.type === fieldType || (operator.type === 'string' && fieldType === undefined)) {
         op = { value: operator.operators[0].value, label: operator.operators[0].label };
       }
       return op;
@@ -98,13 +98,13 @@ class FilterDrawer extends Component {
   handleFieldChange = (i, field, val) => {
     const { editFilterQuery, name } = this.props;
     const operator = this.getFirstOperator(val);
-    const type=this.getFieldType(val);
+    const type = this.getFieldType(val);
 
-    editFilterQuery(name, i, {[field]: val, type, operator, value: ''});
+    editFilterQuery(name, i, { [field]: val, type, operator, value: '' });
   }
 
   handleQueryDelete = (index) => {
-    const { removeFilterQuery, name }= this.props;
+    const { removeFilterQuery, name } = this.props;
 
     removeFilterQuery(name, index);
   }
@@ -127,30 +127,30 @@ class FilterDrawer extends Component {
     const { isOpen, sortField, sortOrientation, queries } = filterSelectors.selectFilterProps(name, filters);
 
     return (
-      <Drawer  openSecondary={true} open={isOpen} width={this.props.width}>
+      <Drawer openSecondary={true} open={isOpen} width={this.props.width}>
         <AppBar
-          title={formatMessage?formatMessage({id:'filter'}):'Filter'}
-          onLeftIconButtonTouchTap={this.handleCloseFilter}
+          title={formatMessage ? formatMessage({ id: 'filter' }) : 'Filter'}
+          onLeftIconButtonClick={this.handleCloseFilter}
           iconElementLeft={
             <IconButton
               tooltipPosition={'bottom-right'}
-              tooltip={formatMessage?formatMessage({id:'close_filter'}):'Close filter'}>
+              tooltip={formatMessage ? formatMessage({ id: 'close_filter' }) : 'Close filter'}>
               <FontIcon className="material-icons" >chevron_right</FontIcon>
             </IconButton>
           }
         />
         <div>
-          <div style={{display: 'flex', flexDirectiaron: 'row', alignItems: 'center'}}>
-            <Subheader >{formatMessage?formatMessage({id:'sorting'}):'Sorting'}</Subheader>
+          <div style={{ display: 'flex', flexDirectiaron: 'row', alignItems: 'center' }}>
+            <Subheader >{formatMessage ? formatMessage({ id: 'sorting' }) : 'Sorting'}</Subheader>
             <div>
               <IconButton
-                style={{padding: 0}}
-                onClick={()=>{this.handleSortOrientationChange(!sortOrientation)}}
+                style={{ padding: 0 }}
+                onClick={() => { this.handleSortOrientationChange(!sortOrientation) }}
                 tooltipPosition={'bottom-left'}
-                tooltip={formatMessage?formatMessage({id:'change_sort_orientation'}):'Change orientation'}>
+                tooltip={formatMessage ? formatMessage({ id: 'change_sort_orientation' }) : 'Change orientation'}>
                 <FontIcon
                   className="material-icons"
-                  color={sortOrientation===false?muiTheme.palette.accent1Color:muiTheme.palette.primary1Color}>
+                  color={sortOrientation === false ? muiTheme.palette.accent1Color : muiTheme.palette.primary1Color}>
                   sort_by_alpha
                 </FontIcon>
               </IconButton>
@@ -162,12 +162,12 @@ class FilterDrawer extends Component {
               <SelectField
                 name='sortField'
                 value={sortField}
-                hintText={formatMessage?formatMessage({id:'select_field'}):'Select field'}
+                hintText={formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'}
                 onChange={this.handleSortFieldChange}
                 fullWidth={true}
                 showAutocompleteThreshold={4}
-                style={{marginLeft: 15, marginRight: 10}}>
-                {fields.map((field)=>{
+                style={{ marginLeft: 15, marginRight: 10 }}>
+                {fields.map((field) => {
                   return <div
                     value={field.name}
                     key={field.name}
@@ -176,18 +176,18 @@ class FilterDrawer extends Component {
                   </div>
                 })}
               </SelectField>
-              <br/>
+              <br />
             </div>
           </div>
           <Divider />
-          <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-            <Subheader >{formatMessage?formatMessage({id:'filters'}):'Filters'}</Subheader>
+          <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <Subheader >{formatMessage ? formatMessage({ id: 'filters' }) : 'Filters'}</Subheader>
             <div>
               <IconButton
-                style={{padding: 0}}
+                style={{ padding: 0 }}
                 onClick={this.handleAddFilterQuery}
                 tooltipPosition={'bottom-left'}
-                tooltip={formatMessage?formatMessage({id:'add_filter'}):'Add filter'}>
+                tooltip={formatMessage ? formatMessage({ id: 'add_filter' }) : 'Add filter'}>
                 <FontIcon
                   className="material-icons"
                   color={muiTheme.palette.primary1Color}>
@@ -197,20 +197,20 @@ class FilterDrawer extends Component {
             </div>
           </div>
 
-          {queries.map((query, i)=>{
+          {queries.map((query, i) => {
             const { field } = filterSelectors.selectQueryProps(query);
 
-            return  <div key={i}>
+            return <div key={i}>
               <div>
-                <br/>
+                <br />
                 <SelectField
                   name='field'
                   value={field}
                   showAutocompleteThreshold={4}
-                  onChange={(val)=>{this.handleFieldChange(i, 'field', val)}}
-                  hintText={formatMessage?formatMessage({id:'select_field'}):'Select field'}
-                  style={{marginLeft: 15, marginRight: 10 }}>
-                  {fields.map((field)=>{
+                  onChange={(val) => { this.handleFieldChange(i, 'field', val) }}
+                  hintText={formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'}
+                  style={{ marginLeft: 15, marginRight: 10 }}>
+                  {fields.map((field) => {
                     return <div
                       value={field.name}
                       key={field.name}
@@ -220,8 +220,8 @@ class FilterDrawer extends Component {
                   })}
                 </SelectField>
               </div>
-              <br/>
-              <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
+              <br />
+              <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
 
                 <OperatorField
                   queryIndex={i}
@@ -235,10 +235,10 @@ class FilterDrawer extends Component {
 
                 <div>
                   <IconButton
-                    style={{padding: 0}}
-                    onClick={()=>{this.handleQueryDelete(i)}}
+                    style={{ padding: 0 }}
+                    onClick={() => { this.handleQueryDelete(i) }}
                     tooltipPosition={'bottom-left'}
-                    tooltip={formatMessage?formatMessage({id:'delete_filter'}):'Delete filter'}>
+                    tooltip={formatMessage ? formatMessage({ id: 'delete_filter' }) : 'Delete filter'}>
                     <FontIcon
                       className="material-icons"
                       color={muiTheme.palette.accent1Color}>
@@ -286,16 +286,16 @@ const mapStateToProps = (state, ownProps) => {
   const { filters, userSetOperators } = state;
   const { fields, formatMessage } = ownProps;
 
-  const  allOperators = [
-    {value: 'like', label: formatMessage?formatMessage({id: 'operator_like_label'}):'Like'},
-    {value: 'notlike', label: formatMessage?formatMessage({id: 'operator_notlike_label'}):'Not like'},
-    {value: '=', label: formatMessage?formatMessage({id: 'operator_equal_label'}):'='},
-    {value: '!=', label: formatMessage?formatMessage({id: 'operator_notequal_label'}):'!='},
-    {value: '>', label: '>'},
-    {value: '>=', label: '>='},
-    {value: '<', label: '<'},
-    {value: '<=', label: '<='},
-    {value: 'novalue', label: formatMessage?formatMessage({id: 'operator_novalue_label'}):'No value'},
+  const allOperators = [
+    { value: 'like', label: formatMessage ? formatMessage({ id: 'operator_like_label' }) : 'Like' },
+    { value: 'notlike', label: formatMessage ? formatMessage({ id: 'operator_notlike_label' }) : 'Not like' },
+    { value: '=', label: formatMessage ? formatMessage({ id: 'operator_equal_label' }) : '=' },
+    { value: '!=', label: formatMessage ? formatMessage({ id: 'operator_notequal_label' }) : '!=' },
+    { value: '>', label: '>' },
+    { value: '>=', label: '>=' },
+    { value: '<', label: '<' },
+    { value: '<=', label: '<=' },
+    { value: 'novalue', label: formatMessage ? formatMessage({ id: 'operator_novalue_label' }) : 'No value' },
   ]
 
   const operators = [
@@ -303,21 +303,21 @@ const mapStateToProps = (state, ownProps) => {
       type: 'string',
       operators: allOperators.filter((operator) => {
         return (operator.value === 'like' ||
-        operator.value === 'notlike' ||
-        operator.value === '=' ||
-        operator.value === '!=' ||
-        operator.value === 'novalue');
+          operator.value === 'notlike' ||
+          operator.value === '=' ||
+          operator.value === '!=' ||
+          operator.value === 'novalue');
       })
     },
     {
       type: 'date',
       operators: allOperators.filter((operator) => {
         return (operator.value === '=' ||
-        operator.value === '!=' ||
-        operator.value === '<=' ||
-        operator.value === '>=' ||
-        operator.value === '<' ||
-        operator.value === '>');
+          operator.value === '!=' ||
+          operator.value === '<=' ||
+          operator.value === '>=' ||
+          operator.value === '<' ||
+          operator.value === '>');
       })
     },
     {
@@ -330,12 +330,12 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     fields,
-    operators: userSetOperators?userSetOperators:operators,
+    operators: userSetOperators ? userSetOperators : operators,
     filters,
     formatMessage,
   };
 };
 
 export default connect(
-  mapStateToProps, {...filterActions}
+  mapStateToProps, { ...filterActions }
 )(muiThemeable()(FilterDrawer));

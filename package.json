@@ -23,8 +23,9 @@
   "peerDependencies": {
     "react": "15.x || 16.x",
     "react-dom": "15.x || 16.x",
-    "material-ui-superselectfield": "^1.0.11",
-    "react-list": "^0.8.6"
+    "material-ui": "0.x",
+    "material-ui-superselectfield": "1.x",
+    "react-list": "0.x"
   },
   "devDependencies": {
     "babel-polyfill": "^6.26.0",

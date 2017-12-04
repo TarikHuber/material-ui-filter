@@ -4,7 +4,7 @@ export function setFilterIsOpen (name, isOpen) {
   return {
     type: types.ON_FILTER_OPEN_CHANGED,
     name,
-    payload: {isOpen}
+    payload: { isOpen }
   }
 }
 
@@ -12,7 +12,7 @@ export function setFilterSortField (name, sortField) {
   return {
     type: types.ON_FILTER_SORT_FIELD_CHANGED,
     name,
-    payload: {sortField}
+    payload: { sortField }
   }
 }
 
@@ -20,7 +20,7 @@ export function setFilterSortOrientation (name, sortOrientation) {
   return {
     type: types.ON_FILTER_SORT_FIELD_CHANGED,
     name,
-    payload: {sortOrientation}
+    payload: { sortOrientation }
   }
 }
 
@@ -28,10 +28,9 @@ export function addFilterQuery (name, query) {
   return {
     type: types.ON_ADD_FILTER_QUERY,
     name,
-    payload: {...query}
+    payload: { ...query }
   }
 }
-
 
 export function setSearch (name, search) {
   return {
@@ -46,7 +45,7 @@ export function editFilterQuery (name, index, query) {
     type: types.ON_EDIT_FILTER_QUERY,
     name,
     index,
-    payload: {...query}
+    payload: { ...query }
   }
 }
 

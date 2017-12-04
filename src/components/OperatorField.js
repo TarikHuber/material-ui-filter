@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import SelectField from 'material-ui-superselectfield';
-import * as filterSelectors from '../store/selectors';
-
+import React, { Component } from 'react'
+import SelectField from 'material-ui-superselectfield'
+import * as filterSelectors from '../store/selectors'
 
 export class OperatorField extends Component {
 

@@ -120,31 +120,31 @@ export function getFilteredList (filterName, filters, list, getSourceValue) {
           if (type === 'date') {
             switch (operator.value) {
               case '=':
-              show = (queryDateObj - fieldValue === 0)
-              break
+                show = (queryDateObj - fieldValue === 0)
+                break
 
               case '!=':
-              show = (queryDateObj - fieldValue !== 0)
-              break
+                show = (queryDateObj - fieldValue !== 0)
+                break
 
               case '>':
-              show = (queryDateObj - fieldValue < 0)
-              break
+                show = (queryDateObj - fieldValue < 0)
+                break
 
               case '>=':
-              show = (queryDateObj - fieldValue <= 0)
-              break
+                show = (queryDateObj - fieldValue <= 0)
+                break
 
               case '<':
-              show = (queryDateObj - fieldValue > 0)
-              break
+                show = (queryDateObj - fieldValue > 0)
+                break
 
               case '<=':
-              show = (queryDateObj - fieldValue >= 0)
-              break
+                show = (queryDateObj - fieldValue >= 0)
+                break
 
               default:
-              break
+                break
             }
           } else if (type === 'bool') {
             let fieldVal = false
@@ -165,35 +165,35 @@ export function getFilteredList (filterName, filters, list, getSourceValue) {
 
             switch (operator.value) {
               case 'like':
-              show = fieldValueString.indexOf(queryValueString) !== -1
-              break
+                show = fieldValueString.indexOf(queryValueString) !== -1
+                break
 
               case 'notlike':
-              show = fieldValueString.indexOf(queryValueString) === -1
-              break
+                show = fieldValueString.indexOf(queryValueString) === -1
+                break
 
               case '=':
-              show = fieldValueString === queryValueString
-              break
+                show = fieldValueString === queryValueString
+                break
 
               case '>':
-              show = fieldValueString.localeCompare(queryValueString) > 0
-              break
+                show = fieldValueString.localeCompare(queryValueString) > 0
+                break
 
               case '>=':
-              show = fieldValueString.localeCompare(queryValueString) >= 0
-              break
+                show = fieldValueString.localeCompare(queryValueString) >= 0
+                break
 
               case '<':
-              show = fieldValueString.localeCompare(queryValueString) < 0
-              break
+                show = fieldValueString.localeCompare(queryValueString) < 0
+                break
 
               case '<=':
-              show = fieldValueString.localeCompare(valueString) <= 0
-              break
+                show = fieldValueString.localeCompare(valueString) <= 0
+                break
 
               default:
-              break
+                break
             }
           }
         } else {
@@ -209,8 +209,8 @@ export function getFilteredList (filterName, filters, list, getSourceValue) {
     }
   }
 
-  //search
-  if(searchValue != null && searchValue !== '') {
+  // search
+  if (searchValue != null && searchValue !== '') {
     result = result.filter((row, i) => {
       return JSON.stringify(row).toUpperCase().indexOf(String(searchValue).toUpperCase()) !== -1
     })
