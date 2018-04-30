@@ -1,6 +1,22 @@
 import React, { Component } from 'react'
-import SelectField from 'material-ui-superselectfield'
+import SelectField from '../components/SelectField'
+import SelectWrapped from '../components/SelectField'
+import Input from 'material-ui/Input'
+import { withTheme, withStyles } from 'material-ui/styles';
+import Toolbar from 'material-ui/Toolbar';
+import Tooltip from 'material-ui/Tooltip';
+import IconButton from 'material-ui/IconButton'
+import Icon from 'material-ui/Icon'
 import * as filterSelectors from '../store/selectors'
+
+const styles = {
+  list: {
+    width: 250,
+  },
+  flex: {
+    flex: 1,
+  },
+};
 
 export class OperatorField extends Component {
 
@@ -21,7 +37,7 @@ export class OperatorField extends Component {
 
   render() {
 
-    const { queryIndex, currentField, query, fields, operators, handleQueryChange, formatMessage } = this.props;
+    const { queryIndex, currentField, query, fields, operators, handleQueryChange, formatMessage, classes, onClick } = this.props;
     const { operator } = filterSelectors.selectQueryProps(query);
 
 
@@ -40,14 +56,10 @@ export class OperatorField extends Component {
       if (operator.type === fieldType || (operator.type === 'string' && fieldType === undefined)) {
         operator.operators.map((op) => {
           return (
-            divFields.push(
-              <div
-                value={op.value}
-                key={op.value}
-                label={op.label}>
-                {op.label}
-              </div>
-            )
+            divFields.push({
+              value: op.value,
+              label: op.label,
+            })
           );
         });
       }
@@ -55,21 +67,35 @@ export class OperatorField extends Component {
     });
 
     return (
-      <div style={{ flexGrow: 1 }}>
-        <SelectField
-          name='operator'
+
+
+      <Toolbar>
+        <Input
+          fullWidth
+          inputComponent={SelectWrapped}
           value={operator}
-          showAutocompleteThreshold={4}
-          hintTextAutocomplete={formatMessage ? formatMessage({ id: 'hint_autocomplete' }) : 'Select operator'}
-          noMatchFound={formatMessage ? formatMessage({ id: 'not_match_found' }) : 'No match found'}
           onChange={(val) => { handleQueryChange(queryIndex, 'operator', val) }}
-          hintText={formatMessage ? formatMessage({ id: 'select_operator' }) : 'Select operator'}
-          style={{ marginLeft: 15, marginRight: 10 }}>
-          {
-            divFields.map((divField) => divField)
-          }
-        </SelectField>
-      </div>
+          placeholder={formatMessage ? formatMessage({ id: 'hint_autocomplete' }) : 'Select operator'}
+          id="react-select-single"
+          inputProps={{
+            classes,
+            name: 'react-select-single',
+            instanceId: 'react-select-single',
+            options: divFields
+          }}
+        />
+        <Tooltip
+          id="tooltip-bottom-start"
+          title={formatMessage ? formatMessage({ id: isCaseSensitive ? 'disable_case_sensitivity' : 'enable_case_sensitivity' }) : ''}
+          placement="bottom-end">
+          <IconButton onClick={onClick} >
+            <Icon>delete</Icon>
+          </IconButton>
+        </Tooltip>
+      </Toolbar>
+
     );
   }
 }
+
+export default withStyles(styles)(OperatorField)
