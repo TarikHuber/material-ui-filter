@@ -32,7 +32,7 @@ export class OperatorField extends Component {
   render() {
 
     const { queryIndex, currentField, query, fields, operators, handleQueryChange, formatMessage, classes, onClick } = this.props;
-    const { operator } = filterSelectors.selectQueryProps(query);
+    const { operator, isCaseSensitive } = filterSelectors.selectQueryProps(query);
 
 
     if (queryIndex == null ||
