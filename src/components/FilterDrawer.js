@@ -144,7 +144,7 @@ class FilterDrawer extends Component {
 
     return (
       <Drawer
-        //variant="persistent"
+        variant="persistent"
         className={classes.list}
         anchor="right"
         open={isOpen}
