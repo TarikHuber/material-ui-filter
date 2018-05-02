@@ -16,7 +16,7 @@ import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import MenuIcon from '@material-ui/icons/Menu';
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1,
   },
@@ -27,7 +27,10 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
-};
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1
+  },
+})
 
 
 class App extends Component {
@@ -82,7 +85,7 @@ class App extends Component {
     return (
       <div>
 
-        <AppBar position="static">
+        <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <Typography variant="title" color="inherit" className={classes.flex}>
               {`material-ui-filter (${source.length} entries)`}
@@ -164,4 +167,4 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   { ...filterActions }
-)(withStyles(styles)(App))
+)(withStyles(styles, { withTheme: true })(App))

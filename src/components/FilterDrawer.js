@@ -28,6 +28,9 @@ const styles = theme => ({
     zIndex: theme.zIndex.drawer + 2,
     width: 250,
   },
+  drawer: {
+    zIndex: theme.zIndex.drawer + 2,
+  },
 })
 
 class FilterDrawer extends Component {
@@ -148,7 +151,7 @@ class FilterDrawer extends Component {
         {
           isOpen && <Drawer
             variant="persistent"
-            className={classes.list}
+            clases={{ paper: classes.drawer }}
             anchor="right"
             open={isOpen}
             width={this.props.width}
