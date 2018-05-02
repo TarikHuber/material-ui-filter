@@ -21,7 +21,6 @@ import Tooltip from 'material-ui/Tooltip';
 import Input from 'material-ui/Input';
 
 const styles = theme => {
-
   flex: {
     flexGrow: 1
   },
