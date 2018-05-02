@@ -20,14 +20,14 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Tooltip from 'material-ui/Tooltip';
 import Input from 'material-ui/Input';
 
-const styles = {
+const styles = theme => {
 
   flex: {
     flexGrow: 1
   },
   list: {
-    zIndex: 9,
-    width: 250,
+    zIndex: theme.zIndex.drawer + 1,
+      width: 250,
   },
 };
 
@@ -328,4 +328,4 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(
   mapStateToProps, { ...filterActions }
-)(withTheme()(withStyles(styles)(FilterDrawer)))
+)(withTheme()(withStyles(styles, { withTheme: true })(FilterDrawer)))
