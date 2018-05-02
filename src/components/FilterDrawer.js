@@ -20,15 +20,15 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Tooltip from 'material-ui/Tooltip';
 import Input from 'material-ui/Input';
 
-const styles = theme => {
+const styles = theme => ({
   flex: {
     flexGrow: 1
   },
   list: {
     zIndex: theme.zIndex.drawer + 1,
-      width: 250,
+    width: 250,
   },
-};
+})
 
 class FilterDrawer extends Component {
 
