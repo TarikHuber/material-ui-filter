@@ -3,7 +3,7 @@ import React from 'react'
 import App from './App.js'
 import { Provider } from 'react-redux'
 import reducers from './reducers'
-import moment from 'moment';
+import moment from 'moment'
 import { createLogger } from 'redux-logger'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider'

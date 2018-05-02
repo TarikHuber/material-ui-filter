@@ -1,4 +1,4 @@
-import { formatDateToObject } from '../utils/date'
+import moment from 'moment'
 
 export const STRING_TYPE = 'string'
 export const NUMBER_TYPE = 'number'
@@ -7,7 +7,7 @@ export const TIME_TYPE = 'time'
 export const ARRAY_TYPE = 'array'
 export const SELECT_FIELD_TYPE = 'select_field'
 
-function getValue (source, fieldName, getSourceValue = fieldValue => fieldValue, isCaseSensitive, type) {
+function getValue(source, fieldName, getSourceValue = fieldValue => fieldValue, isCaseSensitive, type) {
   if (source != null && getSourceValue(source)) {
     let fieldValue = getSourceValue(source)[fieldName]
 
@@ -27,7 +27,7 @@ function getValue (source, fieldName, getSourceValue = fieldValue => fieldValue,
   }
 }
 
-export function dynamicSort (sortField, sortOrientation, getSourceValue) {
+export function dynamicSort(sortField, sortOrientation, getSourceValue) {
   var sortOrder = sortOrientation ? 1 : -1
 
   return (x, y) => {
@@ -38,7 +38,7 @@ export function dynamicSort (sortField, sortOrientation, getSourceValue) {
   }
 }
 
-export function selectFilterProps (filterName, filters) {
+export function selectFilterProps(filterName, filters) {
   let isOpen = false
   let hasFilters = false
   let sortField = null
@@ -67,7 +67,7 @@ export function selectFilterProps (filterName, filters) {
   }
 }
 
-export function selectQueryProps (query) {
+export function selectQueryProps(query) {
   let value = ''
   let operator
   let field
@@ -94,7 +94,7 @@ export function selectQueryProps (query) {
   }
 }
 
-export function getFilteredList (filterName, filters, list, getSourceValue) {
+export function getFilteredList(filterName, filters, list, getSourceValue) {
   const { sortField, sortOrientation, queries, searchValue } = selectFilterProps(filterName, filters)
   const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' }
 
@@ -107,9 +107,6 @@ export function getFilteredList (filterName, filters, list, getSourceValue) {
   if (queries) {
     for (let query of queries) {
       const { value, operator, field, isCaseSensitive, isSet, type } = selectQueryProps(query)
-      const queryDateString = new Date(value).toLocaleString('de-DE', dateOptions)
-      const queryDateObjWithTime = new Date(formatDateToObject(queryDateString, dateOptions, 'de-DE'))
-      const queryDateObj = new Date(queryDateObjWithTime).setHours(0, 0, 0, 0)
 
       result = result.filter((row, i) => {
         let show = false
@@ -118,29 +115,32 @@ export function getFilteredList (filterName, filters, list, getSourceValue) {
           let fieldValue = getValue(row, field.value, getSourceValue, isCaseSensitive, type)
 
           if (type === 'date') {
+
+            const queryDate = moment(value)
+
             switch (operator.value) {
               case '=':
-                show = (queryDateObj - fieldValue === 0)
+                show = queryDate.isSame(fieldValue, 'day')
                 break
 
               case '!=':
-                show = (queryDateObj - fieldValue !== 0)
+                show = !queryDate.isSame(fieldValue, 'day')
                 break
 
               case '>':
-                show = (queryDateObj - fieldValue < 0)
+                show = queryDate.isAfter(fieldValue, 'day')
                 break
 
               case '>=':
-                show = (queryDateObj - fieldValue <= 0)
+                show = queryDate.isSameOrAfter(fieldValue, 'day')
                 break
 
               case '<':
-                show = (queryDateObj - fieldValue > 0)
+                show = queryDate.isBefore(fieldValue, 'day')
                 break
 
               case '<=':
-                show = (queryDateObj - fieldValue >= 0)
+                show = queryDate.isSameOrBefore(fieldValue, 'day')
                 break
 
               default:

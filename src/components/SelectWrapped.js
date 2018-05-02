@@ -81,6 +81,12 @@ function SelectWrapped(props) {
 const ITEM_HEIGHT = 48;
 
 const styles = theme => ({
+  list: {
+
+  },
+  flex: {
+
+  },
   root: {
     flexGrow: 1,
     height: 250,
@@ -184,7 +190,7 @@ const styles = theme => ({
       height: 1,
       width: 1,
       margin: -1,
-    },
+    }
   },
 });
 

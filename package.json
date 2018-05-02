@@ -30,7 +30,7 @@
   "devDependencies": {
     "@material-ui/icons": "^1.0.0-beta.43",
     "gh-pages": "^1.1.0",
-    "material-ui": "^1.0.0-beta.43",
+    "material-ui": "^1.0.0-beta.44",
     "material-ui-pickers": "^1.0.0-rc.6",
     "material-ui-superselectfield": "^1.9.2",
     "moment": "^2.22.1",

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import SelectField from '../components/SelectField'
-import SelectWrapped from '../components/SelectField'
+import SelectWrapped from '../components/SelectWrapped'
 import Input from 'material-ui/Input'
 import { withTheme, withStyles } from 'material-ui/styles';
 import Toolbar from 'material-ui/Toolbar';
@@ -10,12 +9,7 @@ import Icon from 'material-ui/Icon'
 import * as filterSelectors from '../store/selectors'
 
 const styles = {
-  list: {
-    width: 250,
-  },
-  flex: {
-    flex: 1,
-  },
+
 };
 
 export class OperatorField extends Component {
@@ -73,7 +67,7 @@ export class OperatorField extends Component {
         <Input
           fullWidth
           inputComponent={SelectWrapped}
-          value={operator}
+          value={operator ? operator.value : undefined}
           onChange={(val) => { handleQueryChange(queryIndex, 'operator', val) }}
           placeholder={formatMessage ? formatMessage({ id: 'hint_autocomplete' }) : 'Select operator'}
           id="react-select-single"
@@ -88,7 +82,7 @@ export class OperatorField extends Component {
           id="tooltip-bottom-start"
           title={formatMessage ? formatMessage({ id: isCaseSensitive ? 'disable_case_sensitivity' : 'enable_case_sensitivity' }) : ''}
           placement="bottom-end">
-          <IconButton onClick={onClick} >
+          <IconButton onClick={onClick} aria-label="Delete" color="secondary" >
             <Icon>delete</Icon>
           </IconButton>
         </Tooltip>

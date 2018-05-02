@@ -16,73 +16,6 @@ import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import MenuIcon from '@material-ui/icons/Menu';
 
-
-/*
-
-        <AppBar
-          iconElementLeft={<div></div>}
-          title={`material-ui-filter (${source.length} entries)`}
-          iconStyleRight={{ width: '50%', textAlign: 'center', marginLeft: 0 }}
-          iconElementRight={
-            <div style={{ display: 'flex' }}>
-              <div style={{ width: 'calc(100% - 84px)' }}>
-                <div style={{
-                  display: 'inline-block',
-                  backgroundColor: '#fff',
-                  borderRadius: 5,
-                  width: 600,
-                  maxWidth: '100%'
-                }}
-                >
-                  <div style={{
-                    display: 'flex',
-                    borderRadius: 4,
-                    paddingLeft: 10,
-                    paddingRight: 10
-                  }}
-                  >
-                    <Icon style={{ marginLeft: 10, marginTop: 12, marginRight: 15 }} className="material-icons">search</Icon>
-                    <TextField
-                      style={{ width: '100%' }}
-                      underlineShow={false}
-                      onChange={(e, newVal) => {
-                        setSearch('demo', newVal)
-                      }}
-                      hintText={'Search'}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div style={{ position: 'absolute', right: 10, width: 100 }}>
-                <IconButton onClick={() => setFilterIsOpen('demo', true)}>
-                  <Icon className="material-icons">filter_list</Icon>
-                </IconButton>
-              </div>
-            </div>
-          }
-        />
-
-        <List>
-          <ReactList
-            itemRenderer={this.renderItem}
-            length={list ? list.length : 0}
-            type='simple'
-          />
-        </List>
-
-        <FilterDrawer
-          name={'demo'}
-          fields={filterFields}
-
-        //localizing the DatePicker
-        //locale={'de-DE'}
-        //DateTimeFormat={global.Intl.DateTimeFormat}
-        //okLabel="OK"
-        //cancelLabel="Abbrechen"
-        />
-
-*/
-
 const styles = {
   root: {
     flexGrow: 1,
@@ -174,11 +107,9 @@ class App extends Component {
                     <Icon style={{ marginLeft: 10, marginTop: 12, marginRight: 15 }} >search</Icon>
                     <TextField
                       style={{ width: '100%' }}
-                      underlineShow={false}
                       onChange={(e) => {
                         setSearch('demo', e.target.value)
                       }}
-                      hintText={'Search'}
                     />
                   </div>
                 </div>
