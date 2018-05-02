@@ -85,7 +85,10 @@ export class SearchField extends Component {
           <TextField
             fullWidth
             name='value'
-            onChange={(e, val) => { handleQueryChange(queryIndex, 'value', e.target.value) }}
+            onChange={(e, val) => {
+
+              handleQueryChange(queryIndex, 'value', e.target.value)
+            }}
             value={value ? value : ''}
             placeholder={formatMessage ? formatMessage({ id: 'enter_query_text' }) : ''}
           />

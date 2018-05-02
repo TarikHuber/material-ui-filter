@@ -144,120 +144,124 @@ class FilterDrawer extends Component {
     const { isOpen, sortField, sortOrientation, queries } = filterSelectors.selectFilterProps(name, filters);
 
     return (
-      <Drawer
-        variant="persistent"
-        className={classes.list}
-        anchor="right"
-        open={isOpen}
-        width={this.props.width}
-        onClose={() => { setFilterIsOpen(name, false) }}>
-        <div className={classes.list}>
-          <AppBar position="static">
-            <Toolbar>
-              <Tooltip id="tooltip-bottom-end" title={formatMessage ? formatMessage({ id: 'close_filter' }) : 'Close filter'} placement="bottom-end">
-                <IconButton color="inherit" onClick={this.handleCloseFilter} ><Icon>chevron_right</Icon></IconButton>
-              </Tooltip>
-              <Typography variant="title" color="inherit" >
-                {formatMessage ? formatMessage({ id: 'filter' }) : 'Filter'}
-              </Typography>
-            </Toolbar>
-          </AppBar>
-
-          <Toolbar>
-
-            <Input
-              fullWidth
-              inputComponent={SelectWrapped}
-              value={sortField ? sortField.value : null}
-              onChange={this.handleSortFieldChange}
-              placeholder={formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'}
-              id="react-select-single"
-              inputProps={{
-                classes,
-                name: 'react-select-single',
-                instanceId: 'react-select-single',
-                options: fields.map(suggestion => ({
-                  value: suggestion.name,
-                  label: suggestion.label,
-                })),
-              }}
-            />
-            <Tooltip id="tooltip-bottom-end" title={formatMessage ? formatMessage({ id: 'change_sort_orientation' }) : 'Change orientation'} placement="bottom-end">
-              <IconButton onClick={() => { this.handleSortOrientationChange(!sortOrientation) }} color={sortOrientation ? 'primary' : 'secondary'} ><Icon>sort_by_alpha</Icon></IconButton>
-            </Tooltip>
-          </Toolbar>
-          <Divider />
-
-          <Toolbar>
-            <Typography
-              variant="subheading"
-              color="inherit"
-              className={classes.flex}
-            >
-              {formatMessage ? formatMessage({ id: 'filter' }) : 'Filter'}
-            </Typography>
-            <Tooltip id="tooltip-bottom-start" title={formatMessage ? formatMessage({ id: 'add_filter' }) : 'Add filter'} placement="bottom-end">
-              <IconButton onClick={this.handleAddFilterQuery} color="primary" ><Icon>add_circle</Icon></IconButton>
-            </Tooltip>
-          </Toolbar>
-          <div>
-            {queries.map((query, i) => {
-              const { field } = filterSelectors.selectQueryProps(query);
-
-              return <div key={i}>
+      <div>
+        {
+          isOpen && <Drawer
+            variant="persistent"
+            className={classes.list}
+            anchor="right"
+            open={isOpen}
+            width={this.props.width}
+            onClose={() => { setFilterIsOpen(name, false) }}>
+            <div className={classes.list}>
+              <AppBar position="static">
                 <Toolbar>
-                  <Input
-                    fullWidth
-                    inputComponent={SelectWrapped}
-                    value={field ? field.value : null}
-                    onChange={(val) => { this.handleFieldChange(i, 'field', val) }}
-                    placeholder={formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'}
-                    id="react-select-single"
-                    inputProps={{
-                      classes,
-                      name: 'react-select-single',
-                      instanceId: 'react-select-single',
-                      options: fields.map(suggestion => ({
-                        value: suggestion.name,
-                        label: suggestion.label,
-                      })),
-                    }}
-                  />
+                  <Tooltip id="tooltip-bottom-end" title={formatMessage ? formatMessage({ id: 'close_filter' }) : 'Close filter'} placement="bottom-end">
+                    <IconButton color="inherit" onClick={this.handleCloseFilter} ><Icon>chevron_right</Icon></IconButton>
+                  </Tooltip>
+                  <Typography variant="title" color="inherit" >
+                    {formatMessage ? formatMessage({ id: 'filter' }) : 'Filter'}
+                  </Typography>
                 </Toolbar>
+              </AppBar>
 
-                <OperatorField
-                  queryIndex={i}
-                  currentField={field}
-                  query={query}
-                  fields={fields}
-                  operators={operators}
-                  handleQueryChange={this.handleQueryChange}
-                  formatMessage={formatMessage}
-                  onClick={() => { this.handleQueryDelete(i) }}
+              <Toolbar>
+
+                <Input
+                  fullWidth
+                  inputComponent={SelectWrapped}
+                  value={sortField ? sortField.value : null}
+                  onChange={this.handleSortFieldChange}
+                  placeholder={formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'}
+                  id="react-select-single"
+                  inputProps={{
+                    classes,
+                    name: 'react-select-single',
+                    instanceId: 'react-select-single',
+                    options: fields.map(suggestion => ({
+                      value: suggestion.name,
+                      label: suggestion.label,
+                    })),
+                  }}
                 />
+                <Tooltip id="tooltip-bottom-end" title={formatMessage ? formatMessage({ id: 'change_sort_orientation' }) : 'Change orientation'} placement="bottom-end">
+                  <IconButton onClick={() => { this.handleSortOrientationChange(!sortOrientation) }} color={sortOrientation ? 'primary' : 'secondary'} ><Icon>sort_by_alpha</Icon></IconButton>
+                </Tooltip>
+              </Toolbar>
+              <Divider />
+
+              <Toolbar>
+                <Typography
+                  variant="subheading"
+                  color="inherit"
+                  className={classes.flex}
+                >
+                  {formatMessage ? formatMessage({ id: 'filter' }) : 'Filter'}
+                </Typography>
+                <Tooltip id="tooltip-bottom-start" title={formatMessage ? formatMessage({ id: 'add_filter' }) : 'Add filter'} placement="bottom-end">
+                  <IconButton onClick={this.handleAddFilterQuery} color="primary" ><Icon>add_circle</Icon></IconButton>
+                </Tooltip>
+              </Toolbar>
+              <div>
+                {queries.map((query, i) => {
+                  const { field } = filterSelectors.selectQueryProps(query);
+
+                  return <div key={i}>
+                    <Toolbar>
+                      <Input
+                        fullWidth
+                        inputComponent={SelectWrapped}
+                        value={field ? field.value : null}
+                        onChange={(val) => { this.handleFieldChange(i, 'field', val) }}
+                        placeholder={formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'}
+                        id="react-select-single"
+                        inputProps={{
+                          classes,
+                          name: 'react-select-single',
+                          instanceId: 'react-select-single',
+                          options: fields.map(suggestion => ({
+                            value: suggestion.name,
+                            label: suggestion.label,
+                          })),
+                        }}
+                      />
+                    </Toolbar>
+
+                    <OperatorField
+                      queryIndex={i}
+                      currentField={field}
+                      query={query}
+                      fields={fields}
+                      operators={operators}
+                      handleQueryChange={this.handleQueryChange}
+                      formatMessage={formatMessage}
+                      onClick={() => { this.handleQueryDelete(i) }}
+                    />
 
 
-                <SearchField
-                  id={'searchField'}
-                  queryIndex={i}
-                  currentField={field}
-                  query={query}
-                  DateTimeFormat={DateTimeFormat}
-                  locale={locale}
-                  theme={theme}
-                  formatMessage={formatMessage}
-                  handleQueryChange={this.handleQueryChange}
-                  fields={fields}
-                  okLabel={okLabel}
-                  cancelLabel={cancelLabel}
-                />
-                <Divider />
+                    <SearchField
+                      id={'searchField'}
+                      queryIndex={i}
+                      currentField={field}
+                      query={query}
+                      DateTimeFormat={DateTimeFormat}
+                      locale={locale}
+                      theme={theme}
+                      formatMessage={formatMessage}
+                      handleQueryChange={this.handleQueryChange}
+                      fields={fields}
+                      okLabel={okLabel}
+                      cancelLabel={cancelLabel}
+                    />
+                    <Divider />
+                  </div>
+                })}
+
               </div>
-            })}
-
-          </div>
-        </div>
-      </Drawer >
+            </div>
+          </Drawer >
+        }
+      </div>
     );
   }
 }
