@@ -25,7 +25,7 @@ const styles = theme => ({
     flexGrow: 1
   },
   list: {
-    zIndex: theme.zIndex.drawer + 1,
+    zIndex: theme.zIndex.drawer + 2,
     width: 250,
   },
 })
