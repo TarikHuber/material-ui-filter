@@ -67,7 +67,7 @@ export class OperatorField extends Component {
         <Input
           fullWidth
           inputComponent={SelectWrapped}
-          value={operator ? operator.value : undefined}
+          value={operator ? operator.value : null}
           onChange={(val) => { handleQueryChange(queryIndex, 'operator', val) }}
           placeholder={formatMessage ? formatMessage({ id: 'hint_autocomplete' }) : 'Select operator'}
           id="react-select-single"

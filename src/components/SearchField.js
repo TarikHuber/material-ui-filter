@@ -86,7 +86,7 @@ export class SearchField extends Component {
             fullWidth
             name='value'
             onChange={(e, val) => { handleQueryChange(queryIndex, 'value', e.target.value) }}
-            value={value ? value : undefined}
+            value={value ? value : ''}
             placeholder={formatMessage ? formatMessage({ id: 'enter_query_text' }) : ''}
           />
           <Tooltip

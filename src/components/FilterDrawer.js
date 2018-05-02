@@ -21,10 +21,12 @@ import Tooltip from 'material-ui/Tooltip';
 import Input from 'material-ui/Input';
 
 const styles = {
+
   flex: {
     flexGrow: 1
   },
   list: {
+    zIndex: 9,
     width: 250,
   },
 };
@@ -167,7 +169,7 @@ class FilterDrawer extends Component {
             <Input
               fullWidth
               inputComponent={SelectWrapped}
-              value={sortField ? sortField.value : undefined}
+              value={sortField ? sortField.value : null}
               onChange={this.handleSortFieldChange}
               placeholder={formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'}
               id="react-select-single"
@@ -208,7 +210,7 @@ class FilterDrawer extends Component {
                   <Input
                     fullWidth
                     inputComponent={SelectWrapped}
-                    value={field ? field.value : undefined}
+                    value={field ? field.value : null}
                     onChange={(val) => { this.handleFieldChange(i, 'field', val) }}
                     placeholder={formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'}
                     id="react-select-single"
