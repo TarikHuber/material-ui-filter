@@ -87,6 +87,9 @@ const styles = theme => ({
   flex: {
 
   },
+  drawer: {
+
+  },
   root: {
     flexGrow: 1,
     height: 250,

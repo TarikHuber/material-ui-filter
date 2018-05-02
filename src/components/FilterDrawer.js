@@ -151,7 +151,7 @@ class FilterDrawer extends Component {
         {
           isOpen && <Drawer
             variant="persistent"
-            clases={{ paper: classes.drawer }}
+            classes={{ paper: classes.drawer }}
             anchor="right"
             open={isOpen}
             width={this.props.width}
