@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import SelectWrapped from '../components/SelectWrapped'
-import Input from 'material-ui/Input'
-import { withTheme, withStyles } from 'material-ui/styles';
-import Toolbar from 'material-ui/Toolbar';
-import Tooltip from 'material-ui/Tooltip';
-import IconButton from 'material-ui/IconButton'
-import Icon from 'material-ui/Icon'
+import Input from '@material-ui/core/Input'
+import { withTheme, withStyles } from '@material-ui/core/styles';
+import Toolbar from '@material-ui/core/Toolbar';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton'
+import Icon from '@material-ui/core/Icon'
 import * as filterSelectors from '../store/selectors'
 
 const styles = {

@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import * as filterSelectors from '../store/selectors'
-import Switch from 'material-ui/Switch'
-import TextField from 'material-ui/TextField'
+import Switch from '@material-ui/core/Switch'
+import TextField from '@material-ui/core/TextField'
 import DatePicker from 'material-ui-pickers/DatePicker'
-import IconButton from 'material-ui/IconButton'
-import Icon from 'material-ui/Icon'
-import Toolbar from 'material-ui/Toolbar'
-import Tooltip from 'material-ui/Tooltip'
+import IconButton from '@material-ui/core/IconButton'
+import Icon from '@material-ui/core/Icon'
+import Toolbar from '@material-ui/core/Toolbar'
+import Tooltip from '@material-ui/core/Tooltip'
 
 export class SearchField extends Component {
 

@@ -1,22 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import AppBar from 'material-ui/AppBar'
+import AppBar from '@material-ui/core/AppBar'
 import { FilterDrawer, filterSelectors, filterActions } from '../../src'
-import Icon from 'material-ui/Icon'
-import IconButton from 'material-ui/IconButton'
-import List, { ListItem } from 'material-ui/List'
-import TextField from 'material-ui/TextField'
+import Icon from '@material-ui/core/Icon'
+import IconButton from '@material-ui/core/IconButton'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import TextField from '@material-ui/core/TextField'
 import source from '../src/data.json'
 import ReactList from 'react-list'
-import Divider from 'material-ui/Divider'
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
+import Divider from '@material-ui/core/Divider'
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1,
   },
@@ -27,7 +28,10 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
-};
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1
+  },
+})
 
 
 class App extends Component {
@@ -82,7 +86,7 @@ class App extends Component {
     return (
       <div>
 
-        <AppBar position="static">
+        <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <Typography variant="title" color="inherit" className={classes.flex}>
               {`material-ui-filter (${source.length} entries)`}
@@ -164,4 +168,4 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   { ...filterActions }
-)(withStyles(styles)(App))
+)(withStyles(styles, { withTheme: true })(App))
