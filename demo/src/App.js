@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import AppBar from 'material-ui/AppBar'
+import AppBar from '@material-ui/core/AppBar'
 import { FilterDrawer, filterSelectors, filterActions } from '../../src'
-import Icon from 'material-ui/Icon'
-import IconButton from 'material-ui/IconButton'
-import List, { ListItem } from 'material-ui/List'
-import TextField from 'material-ui/TextField'
+import Icon from '@material-ui/core/Icon'
+import IconButton from '@material-ui/core/IconButton'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import TextField from '@material-ui/core/TextField'
 import source from '../src/data.json'
 import ReactList from 'react-list'
-import Divider from 'material-ui/Divider'
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles';
-import Button from 'material-ui/Button';
+import Divider from '@material-ui/core/Divider'
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const styles = theme => ({

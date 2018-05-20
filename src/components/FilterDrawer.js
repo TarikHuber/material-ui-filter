@@ -2,23 +2,23 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import SelectWrapped from '../components/SelectWrapped'
-import ListSubheader from 'material-ui/List/ListSubheader';
-import Divider from 'material-ui/Divider'
-import { withTheme, withStyles } from 'material-ui/styles';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Divider from '@material-ui/core/Divider'
+import { withTheme, withStyles } from '@material-ui/core/styles';
 import * as filterActions from '../store/actions'
 import * as filterSelectors from '../store/selectors'
-import Drawer from 'material-ui/Drawer'
-import AppBar from 'material-ui/AppBar'
-import IconButton from 'material-ui/IconButton'
-import Icon from 'material-ui/Icon'
+import Drawer from '@material-ui/core/Drawer'
+import AppBar from '@material-ui/core/AppBar'
+import IconButton from '@material-ui/core/IconButton'
+import Icon from '@material-ui/core/Icon'
 import OperatorField from './OperatorField'
 import { SearchField } from './SearchField'
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import MenuIcon from '@material-ui/icons/Menu';
-import Tooltip from 'material-ui/Tooltip';
-import Input from 'material-ui/Input';
+import Tooltip from '@material-ui/core/Tooltip';
+import Input from '@material-ui/core/Input';
 
 const styles = theme => ({
   flex: {
