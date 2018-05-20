@@ -23,8 +23,11 @@
   "peerDependencies": {
     "react": "15.x || 16.x",
     "react-dom": "15.x || 16.x",
-    "material-ui": "0.x",
-    "material-ui-superselectfield": "1.x",
+    "@material-ui/core": "1.x",
+    "@material-ui/icons": "1.x",
+    "material-ui-pickers": "1.x",
+    "moment": "2.x",
+    "redux": "4.x",
     "react-list": "0.x"
   },
   "devDependencies": {
@@ -32,7 +35,6 @@
     "@material-ui/icons": "^1.0.0",
     "gh-pages": "^1.1.0",
     "material-ui-pickers": "^1.0.0-rc.9",
-    "material-ui-superselectfield": "^1.9.2",
     "moment": "^2.22.1",
     "nwb": "^0.21.5",
     "prop-types": "^15.6.1",
