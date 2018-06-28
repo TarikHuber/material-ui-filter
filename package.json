@@ -41,7 +41,7 @@
     "match-sorter": "^2.2.3",
     "material-ui-pickers": "^1.0.0-rc.9",
     "moment": "^2.22.2",
-    "muishift": "^0.1.6",
+    "muishift": "^0.1.8",
     "nwb": "^0.21.5",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
