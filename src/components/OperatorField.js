@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import SelectWrapped from '../components/SelectWrapped'
 import Input from '@material-ui/core/Input'
 import { withTheme, withStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -7,6 +6,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton'
 import Icon from '@material-ui/core/Icon'
 import * as filterSelectors from '../store/selectors'
+import { SelectField } from 'muishift'
 
 const styles = {
 
@@ -64,20 +64,19 @@ export class OperatorField extends Component {
 
 
       <Toolbar>
-        <Input
-          fullWidth
-          inputComponent={SelectWrapped}
-          value={operator ? operator.value : null}
-          onChange={(val) => { handleQueryChange(queryIndex, 'operator', val) }}
-          placeholder={formatMessage ? formatMessage({ id: 'hint_autocomplete' }) : 'Select operator'}
-          id="react-select-single"
-          inputProps={{
-            classes,
-            name: 'react-select-single',
-            instanceId: 'react-select-single',
-            options: divFields
-          }}
-        />
+        <div style={{ maxWidth: 160 }}>
+          <SelectField
+            input={{ value: operator }}
+            onChange={(val) => { handleQueryChange(queryIndex, 'operator', val) }}
+            items={divFields}
+            itemToString={item => item ? item.label : ''}
+            id="react-select-single"
+            inputProps={{
+              placeholder: formatMessage ? formatMessage({ id: 'hint_autocomplete' }) : 'Select operator'
+            }}
+          />
+        </div>
+
         <Tooltip
           id="tooltip-bottom-start"
           title={formatMessage ? formatMessage({ id: isCaseSensitive ? 'disable_case_sensitivity' : 'enable_case_sensitivity' }) : ''}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import SelectWrapped from '../components/SelectWrapped'
+import { SelectField } from 'muishift'
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Divider from '@material-ui/core/Divider'
 import { withTheme, withStyles } from '@material-ui/core/styles';
@@ -22,7 +22,7 @@ import Input from '@material-ui/core/Input';
 
 const styles = theme => ({
   flex: {
-    flexGrow: 1
+    //flexGrow: 1
   },
   list: {
     zIndex: theme.zIndex.drawer + 2,
@@ -43,6 +43,7 @@ class FilterDrawer extends Component {
 
   handleSortFieldChange = (selectedField, fieldName) => {
     const { setFilterSortField, name } = this.props;
+
 
     setFilterSortField(name, selectedField);
   }
@@ -168,29 +169,28 @@ class FilterDrawer extends Component {
                 </Toolbar>
               </AppBar>
 
-              <Toolbar>
 
-                <Input
-                  fullWidth
-                  inputComponent={SelectWrapped}
-                  value={sortField ? sortField.value : null}
-                  onChange={this.handleSortFieldChange}
-                  placeholder={formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'}
-                  id="react-select-single"
-                  inputProps={{
-                    classes,
-                    name: 'react-select-single',
-                    instanceId: 'react-select-single',
-                    options: fields.map(suggestion => ({
+              <Toolbar>
+                <div style={{ maxWidth: 160 }}>
+                  <SelectField
+                    input={{ value: sortField }}
+                    items={fields.map(suggestion => ({
                       value: suggestion.name,
                       label: suggestion.label,
-                    })),
-                  }}
-                />
+                    }))}
+                    itemToString={item => item ? item.label : ''}
+                    onChange={this.handleSortFieldChange}
+                    inputProps={{
+                      //style: { width: 100 },
+                      placeholder: formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'
+                    }}
+                  />
+                </div>
                 <Tooltip id="tooltip-bottom-end" title={formatMessage ? formatMessage({ id: 'change_sort_orientation' }) : 'Change orientation'} placement="bottom-end">
                   <IconButton onClick={() => { this.handleSortOrientationChange(!sortOrientation) }} color={sortOrientation ? 'primary' : 'secondary'} ><Icon>sort_by_alpha</Icon></IconButton>
                 </Tooltip>
               </Toolbar>
+
               <Divider />
 
               <Toolbar>
@@ -211,23 +211,20 @@ class FilterDrawer extends Component {
 
                   return <div key={i}>
                     <Toolbar>
-                      <Input
-                        fullWidth
-                        inputComponent={SelectWrapped}
-                        value={field ? field.value : null}
-                        onChange={(val) => { this.handleFieldChange(i, 'field', val) }}
-                        placeholder={formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'}
-                        id="react-select-single"
-                        inputProps={{
-                          classes,
-                          name: 'react-select-single',
-                          instanceId: 'react-select-single',
-                          options: fields.map(suggestion => ({
+                      <div style={{ maxWidth: 160 }}>
+                        <SelectField
+                          input={{ value: field }}
+                          items={fields.map(suggestion => ({
                             value: suggestion.name,
                             label: suggestion.label,
-                          })),
-                        }}
-                      />
+                          }))}
+                          itemToString={item => item ? item.label : ''}
+                          onChange={(val) => { this.handleFieldChange(i, 'field', val) }}
+                          inputProps={{
+                            placeholder: formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'
+                          }}
+                        />
+                      </div>
                     </Toolbar>
 
                     <OperatorField

@@ -10,6 +10,7 @@ import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsPr
 import MomentUtils from 'material-ui-pickers/utils/moment-utils'
 import { createStore, compose, applyMiddleware } from 'redux'
 import { createMuiTheme } from '@material-ui/core/styles'
+import { IntlProvider } from 'react-intl'
 
 const logger = createLogger({})
 const muiTheme = createMuiTheme();
@@ -19,7 +20,9 @@ render(
   <Provider store={store}>
     <MuiPickersUtilsProvider utils={MomentUtils} >
       <MuiThemeProvider theme={muiTheme}>
-        <App />
+        <IntlProvider locale={'en'} key={'en'} messages={{}}>
+          <App />
+        </IntlProvider>
       </MuiThemeProvider>
     </MuiPickersUtilsProvider>
   </Provider>
