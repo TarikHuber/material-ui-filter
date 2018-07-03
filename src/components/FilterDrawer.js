@@ -1,24 +1,24 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { SelectField } from 'muishift'
-import ListSubheader from '@material-ui/core/ListSubheader';
-import Divider from '@material-ui/core/Divider'
-import { withTheme, withStyles } from '@material-ui/core/styles';
 import * as filterActions from '../store/actions'
 import * as filterSelectors from '../store/selectors'
-import Drawer from '@material-ui/core/Drawer'
 import AppBar from '@material-ui/core/AppBar'
-import IconButton from '@material-ui/core/IconButton'
+import Button from '@material-ui/core/Button'
+import Divider from '@material-ui/core/Divider'
+import Drawer from '@material-ui/core/Drawer'
 import Icon from '@material-ui/core/Icon'
+import IconButton from '@material-ui/core/IconButton'
+import Input from '@material-ui/core/Input'
+import ListSubheader from '@material-ui/core/ListSubheader'
+import MenuIcon from '@material-ui/icons/Menu'
 import OperatorField from './OperatorField'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import Toolbar from '@material-ui/core/Toolbar'
+import Tooltip from '@material-ui/core/Tooltip'
+import Typography from '@material-ui/core/Typography'
 import { SearchField } from './SearchField'
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import MenuIcon from '@material-ui/icons/Menu';
-import Tooltip from '@material-ui/core/Tooltip';
-import Input from '@material-ui/core/Input';
+import { SelectField } from 'muishift'
+import { connect } from 'react-redux'
+import { withTheme, withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
   flex: {
@@ -181,7 +181,7 @@ class FilterDrawer extends Component {
                     itemToString={item => item ? item.label : ''}
                     onChange={this.handleSortFieldChange}
                     inputProps={{
-                      //style: { width: 100 },
+                      fullWidth: true,
                       placeholder: formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'
                     }}
                   />
@@ -221,7 +221,8 @@ class FilterDrawer extends Component {
                           itemToString={item => item ? item.label : ''}
                           onChange={(val) => { this.handleFieldChange(i, 'field', val) }}
                           inputProps={{
-                            placeholder: formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'
+                            fullWidth: true,
+                            placeholder: formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field',
                           }}
                         />
                       </div>

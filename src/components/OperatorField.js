@@ -72,6 +72,7 @@ export class OperatorField extends Component {
             itemToString={item => item ? item.label : ''}
             id="react-select-single"
             inputProps={{
+              fullWidth: true,
               placeholder: formatMessage ? formatMessage({ id: 'hint_autocomplete' }) : 'Select operator'
             }}
           />
