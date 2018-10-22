@@ -231,10 +231,6 @@ export function getFilteredList(filterName, filters, list, getSourceValue) {
           .indexOf(String(searchValue).toUpperCase()) !== -1
     }
 
-    if (!show) {
-      return false // We return false if one of all queries doesn't match
-    }
-
     return show
   })
 
