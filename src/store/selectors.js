@@ -170,11 +170,10 @@ export function getFilteredList(filterName, filters, list, getSourceValue) {
               return show
             }
           } else if (type === 'object') {
-            show = JSON.stringify(fieldValue)
-              ? JSON.stringify(fieldValue)
-                  .toUpperCase()
-                  .indexOf(String(value).toUpperCase()) !== -1
-              : true
+            show =
+              JSON.stringify(fieldValue)
+                .toUpperCase()
+                .indexOf(String(value ? value : '').toUpperCase()) !== -1
 
             if (!show) {
               return show
