@@ -26,42 +26,45 @@ const styles = theme => ({
   },
   list: {
     zIndex: theme.zIndex.drawer + 2,
-    width: 250,
+    width: 250
   },
   drawer: {
-    zIndex: theme.zIndex.drawer + 2,
-  },
+    zIndex: theme.zIndex.drawer + 2
+  }
 })
 
 class FilterDrawer extends Component {
-
   handleCloseFilter = () => {
-    const { setFilterIsOpen, name } = this.props;
+    const { setFilterIsOpen, name } = this.props
 
-    setFilterIsOpen(name, false);
+    setFilterIsOpen(name, false)
   }
 
   handleSortFieldChange = (selectedField, fieldName) => {
-    const { setFilterSortField, name } = this.props;
+    const { setFilterSortField, name } = this.props
 
-
-    setFilterSortField(name, selectedField);
+    setFilterSortField(name, selectedField)
   }
 
-  handleSortOrientationChange = (orientation) => {
-    const { setFilterSortOrientation, name } = this.props;
+  handleSortOrientationChange = orientation => {
+    const { setFilterSortOrientation, name } = this.props
 
-    setFilterSortOrientation(name, orientation);
+    setFilterSortOrientation(name, orientation)
   }
 
   handleAddFilterQuery = () => {
-    const { addFilterQuery, name, formatMessage } = this.props;
+    const { addFilterQuery, name, formatMessage } = this.props
 
-    addFilterQuery(name, { operator: { value: 'like', label: formatMessage ? formatMessage({ id: 'operator_like_label' }) : 'operator_like_label' } });
+    addFilterQuery(name, {
+      operator: {
+        value: 'like',
+        label: formatMessage ? formatMessage({ id: 'operator_like_label' }) : 'operator_like_label'
+      }
+    })
   }
 
   handleQueryChange = (index, field, value, operator) => {
-    const { editFilterQuery, name } = this.props;
+    const { editFilterQuery, name } = this.props
 
     let change = {
       [field]: value
@@ -71,63 +74,61 @@ class FilterDrawer extends Component {
       change.operator = operator
     }
 
-    editFilterQuery(name, index, change);
-
+    editFilterQuery(name, index, change)
   }
 
-  getFieldType = (currentField) => {
-    const { fields } = this.props;
+  getFieldType = currentField => {
+    const { fields } = this.props
 
     if (!currentField) {
-      return 'string';
+      return 'string'
     }
 
-    let fieldType = 'string';
+    let fieldType = 'string'
 
-    fields.map((field) => {
+    fields.map(field => {
       if (field.name === currentField.value) {
-        fieldType = field.type ? field.type : 'string';
+        fieldType = field.type ? field.type : 'string'
       }
-      return field;
-    });
+      return field
+    })
 
-    return fieldType;
+    return fieldType
   }
 
-  getFirstOperator = (currentField) => {
-    const { operators } = this.props;
-    const fieldType = this.getFieldType(currentField);
+  getFirstOperator = currentField => {
+    const { operators } = this.props
+    const fieldType = this.getFieldType(currentField)
 
     if (!fieldType) {
-      return undefined;
+      return undefined
     }
 
-    let op = undefined;
+    let op = undefined
 
-    operators.map((operator) => {
+    operators.map(operator => {
       if (operator.type === fieldType || (operator.type === 'string' && fieldType === undefined)) {
-        op = { value: operator.operators[0].value, label: operator.operators[0].label };
+        op = { value: operator.operators[0].value, label: operator.operators[0].label }
       }
-      return op;
-    });
+      return op
+    })
 
-    return op;
+    return op
   }
 
   handleFieldChange = (i, field, val) => {
-    const { editFilterQuery, name } = this.props;
-    const operator = this.getFirstOperator(val);
-    const type = this.getFieldType(val);
+    const { editFilterQuery, name } = this.props
+    const operator = this.getFirstOperator(val)
+    const type = this.getFieldType(val)
 
-    editFilterQuery(name, i, { [field]: val, type, operator, value: '' });
+    editFilterQuery(name, i, { [field]: val, type, operator, value: '' })
   }
 
-  handleQueryDelete = (index) => {
-    const { removeFilterQuery, name } = this.props;
+  handleQueryDelete = index => {
+    const { removeFilterQuery, name } = this.props
 
-    removeFilterQuery(name, index);
+    removeFilterQuery(name, index)
   }
-
 
   render() {
     const {
@@ -143,32 +144,40 @@ class FilterDrawer extends Component {
       cancelLabel,
       setFilterIsOpen,
       classes
-    } = this.props;
+    } = this.props
 
-    const { isOpen, sortField, sortOrientation, queries } = filterSelectors.selectFilterProps(name, filters);
+    const { isOpen, sortField, sortOrientation, queries } = filterSelectors.selectFilterProps(name, filters)
 
     return (
       <div>
-        {
-          isOpen && <Drawer
+        {isOpen && (
+          <Drawer
             variant="persistent"
             classes={{ paper: classes.drawer }}
             anchor="right"
             open={isOpen}
             width={this.props.width}
-            onClose={() => { setFilterIsOpen(name, false) }}>
+            onClose={() => {
+              setFilterIsOpen(name, false)
+            }}
+          >
             <div className={classes.list}>
               <AppBar position="static">
                 <Toolbar>
-                  <Tooltip id="tooltip-bottom-end" title={formatMessage ? formatMessage({ id: 'close_filter' }) : 'Close filter'} placement="bottom-end">
-                    <IconButton color="inherit" onClick={this.handleCloseFilter} ><Icon>chevron_right</Icon></IconButton>
+                  <Tooltip
+                    id="tooltip-bottom-end"
+                    title={formatMessage ? formatMessage({ id: 'close_filter' }) : 'Close filter'}
+                    placement="bottom-end"
+                  >
+                    <IconButton color="inherit" onClick={this.handleCloseFilter}>
+                      <Icon>chevron_right</Icon>
+                    </IconButton>
                   </Tooltip>
-                  <Typography variant="title" color="inherit" >
+                  <Typography variant="title" color="inherit">
                     {formatMessage ? formatMessage({ id: 'filter' }) : 'Filter'}
                   </Typography>
                 </Toolbar>
               </AppBar>
-
 
               <Toolbar>
                 <div style={{ maxWidth: 160 }}>
@@ -176,9 +185,9 @@ class FilterDrawer extends Component {
                     input={{ value: sortField }}
                     items={fields.map(suggestion => ({
                       value: suggestion.name,
-                      label: suggestion.label,
+                      label: suggestion.label
                     }))}
-                    itemToString={item => item ? item.label : ''}
+                    itemToString={item => (item ? item.label : '')}
                     onChange={this.handleSortFieldChange}
                     inputProps={{
                       fullWidth: true,
@@ -186,84 +195,101 @@ class FilterDrawer extends Component {
                     }}
                   />
                 </div>
-                <Tooltip id="tooltip-bottom-end" title={formatMessage ? formatMessage({ id: 'change_sort_orientation' }) : 'Change orientation'} placement="bottom-end">
-                  <IconButton onClick={() => { this.handleSortOrientationChange(!sortOrientation) }} color={sortOrientation ? 'primary' : 'secondary'} ><Icon>sort_by_alpha</Icon></IconButton>
+                <Tooltip
+                  id="tooltip-bottom-end"
+                  title={formatMessage ? formatMessage({ id: 'change_sort_orientation' }) : 'Change orientation'}
+                  placement="bottom-end"
+                >
+                  <IconButton
+                    onClick={() => {
+                      this.handleSortOrientationChange(!sortOrientation)
+                    }}
+                    color={sortOrientation ? 'primary' : 'secondary'}
+                  >
+                    <Icon>sort_by_alpha</Icon>
+                  </IconButton>
                 </Tooltip>
               </Toolbar>
 
               <Divider />
 
               <Toolbar>
-                <Typography
-                  variant="subheading"
-                  color="inherit"
-                  className={classes.flex}
-                >
+                <Typography variant="subheading" color="inherit" className={classes.flex}>
                   {formatMessage ? formatMessage({ id: 'filter' }) : 'Filter'}
                 </Typography>
-                <Tooltip id="tooltip-bottom-start" title={formatMessage ? formatMessage({ id: 'add_filter' }) : 'Add filter'} placement="bottom-end">
-                  <IconButton onClick={this.handleAddFilterQuery} color="primary" ><Icon>add_circle</Icon></IconButton>
+                <Tooltip
+                  id="tooltip-bottom-start"
+                  title={formatMessage ? formatMessage({ id: 'add_filter' }) : 'Add filter'}
+                  placement="bottom-end"
+                >
+                  <IconButton onClick={this.handleAddFilterQuery} color="primary">
+                    <Icon>add_circle</Icon>
+                  </IconButton>
                 </Tooltip>
               </Toolbar>
               <div>
                 {queries.map((query, i) => {
-                  const { field } = filterSelectors.selectQueryProps(query);
+                  const { field } = filterSelectors.selectQueryProps(query)
 
-                  return <div key={i}>
-                    <Toolbar>
-                      <div style={{ maxWidth: 160 }}>
-                        <SelectField
-                          input={{ value: field }}
-                          items={fields.map(suggestion => ({
-                            value: suggestion.name,
-                            label: suggestion.label,
-                          }))}
-                          itemToString={item => item ? item.label : ''}
-                          onChange={(val) => { this.handleFieldChange(i, 'field', val) }}
-                          inputProps={{
-                            fullWidth: true,
-                            placeholder: formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field',
-                          }}
-                        />
-                      </div>
-                    </Toolbar>
+                  return (
+                    <div key={i}>
+                      <Toolbar>
+                        <div style={{ maxWidth: 160 }}>
+                          <SelectField
+                            input={{ value: field }}
+                            items={fields.map(suggestion => ({
+                              value: suggestion.name,
+                              label: suggestion.label
+                            }))}
+                            itemToString={item => (item ? item.label : '')}
+                            onChange={val => {
+                              this.handleFieldChange(i, 'field', val)
+                            }}
+                            inputProps={{
+                              fullWidth: true,
+                              placeholder: formatMessage ? formatMessage({ id: 'select_field' }) : 'Select field'
+                            }}
+                          />
+                        </div>
+                      </Toolbar>
 
-                    <OperatorField
-                      queryIndex={i}
-                      currentField={field}
-                      query={query}
-                      fields={fields}
-                      operators={operators}
-                      handleQueryChange={this.handleQueryChange}
-                      formatMessage={formatMessage}
-                      onClick={() => { this.handleQueryDelete(i) }}
-                    />
+                      <OperatorField
+                        queryIndex={i}
+                        currentField={field}
+                        query={query}
+                        fields={fields}
+                        operators={operators}
+                        handleQueryChange={this.handleQueryChange}
+                        formatMessage={formatMessage}
+                        onClick={() => {
+                          this.handleQueryDelete(i)
+                        }}
+                      />
 
-
-                    <SearchField
-                      id={'searchField'}
-                      queryIndex={i}
-                      currentField={field}
-                      query={query}
-                      DateTimeFormat={DateTimeFormat}
-                      locale={locale}
-                      theme={theme}
-                      formatMessage={formatMessage}
-                      handleQueryChange={this.handleQueryChange}
-                      fields={fields}
-                      okLabel={okLabel}
-                      cancelLabel={cancelLabel}
-                    />
-                    <Divider />
-                  </div>
+                      <SearchField
+                        id={'searchField'}
+                        queryIndex={i}
+                        currentField={field}
+                        query={query}
+                        DateTimeFormat={DateTimeFormat}
+                        locale={locale}
+                        theme={theme}
+                        formatMessage={formatMessage}
+                        handleQueryChange={this.handleQueryChange}
+                        fields={fields}
+                        okLabel={okLabel}
+                        cancelLabel={cancelLabel}
+                      />
+                      <Divider />
+                    </div>
+                  )
                 })}
-
               </div>
             </div>
-          </Drawer >
-        }
+          </Drawer>
+        )}
       </div>
-    );
+    )
   }
 }
 
@@ -272,13 +298,12 @@ FilterDrawer.propTypes = {
   theme: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   fields: PropTypes.array.isRequired,
-  setFilterIsOpen: PropTypes.func.isRequired,
-};
-
+  setFilterIsOpen: PropTypes.func.isRequired
+}
 
 const mapStateToProps = (state, ownProps) => {
-  const { filters, userSetOperators } = state;
-  const { fields, formatMessage } = ownProps;
+  const { filters, userSetOperators } = state
+  const { fields, formatMessage } = ownProps
 
   const allOperators = [
     { value: 'like', label: formatMessage ? formatMessage({ id: 'operator_like_label' }) : 'Like' },
@@ -290,46 +315,58 @@ const mapStateToProps = (state, ownProps) => {
     { value: '<', label: '<' },
     { value: '<=', label: '<=' },
     { value: 'novalue', label: formatMessage ? formatMessage({ id: 'operator_novalue_label' }) : 'No value' },
+    { value: 'contains', label: formatMessage ? formatMessage({ id: 'operator_contains_label' }) : 'Contains' }
   ]
 
   const operators = [
     {
       type: 'string',
-      operators: allOperators.filter((operator) => {
-        return (operator.value === 'like' ||
+      operators: allOperators.filter(operator => {
+        return (
+          operator.value === 'like' ||
           operator.value === 'notlike' ||
           operator.value === '=' ||
           operator.value === '!=' ||
-          operator.value === 'novalue');
+          operator.value === 'novalue'
+        )
       })
     },
     {
       type: 'date',
-      operators: allOperators.filter((operator) => {
-        return (operator.value === '=' ||
+      operators: allOperators.filter(operator => {
+        return (
+          operator.value === '=' ||
           operator.value === '!=' ||
           operator.value === '<=' ||
           operator.value === '>=' ||
           operator.value === '<' ||
-          operator.value === '>');
+          operator.value === '>'
+        )
       })
     },
     {
       type: 'bool',
-      operators: allOperators.filter((operator) => {
-        return operator.value === '=';
+      operators: allOperators.filter(operator => {
+        return operator.value === '='
+      })
+    },
+    {
+      type: 'object',
+      operators: allOperators.filter(operator => {
+        return operator.value === 'contains'
       })
     }
-  ];
+  ]
 
   return {
     fields,
     operators: userSetOperators ? userSetOperators : operators,
     filters,
-    formatMessage,
-  };
-};
+    formatMessage
+  }
+}
 
 export default connect(
-  mapStateToProps, { ...filterActions }
+  mapStateToProps,
+  { ...filterActions }
 )(withTheme()(withStyles(styles, { withTheme: true })(FilterDrawer)))

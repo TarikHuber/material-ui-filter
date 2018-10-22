@@ -11,31 +11,29 @@ import TextField from '@material-ui/core/TextField'
 import source from '../src/data.json'
 import ReactList from 'react-list'
 import Divider from '@material-ui/core/Divider'
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import MenuIcon from '@material-ui/icons/Menu';
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core/styles'
+import Button from '@material-ui/core/Button'
+import MenuIcon from '@material-ui/icons/Menu'
 
 const styles = theme => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   flex: {
-    flex: 1,
+    flex: 1
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20,
+    marginRight: 20
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1
-  },
+  }
 })
 
-
 class App extends Component {
-
   renderItem = (i, k) => {
     const { list } = this.props
     const key = i
@@ -43,22 +41,12 @@ class App extends Component {
 
     return (
       <div key={i}>
-        <ListItem
-          key={key}
-          id={key}>
+        <ListItem key={key} id={key}>
           <div key={i} style={{ display: 'flex' }}>
-            <div style={{ width: 200 }}>
-              {val.name}
-            </div>
-            <div style={{ width: 400 }}>
-              {val.email}
-            </div>
-            <div style={{ width: 200 }}>
-              {val.registered}
-            </div>
-            <div style={{ width: 200 }}>
-              {val.isActive ? 'Active' : ''}
-            </div>
+            <div style={{ width: 200 }}>{val.name}</div>
+            <div style={{ width: 400 }}>{val.email}</div>
+            <div style={{ width: 200 }}>{val.registered}</div>
+            <div style={{ width: 200 }}>{val.isActive ? 'Active' : ''}</div>
           </div>
         </ListItem>
         <Divider />
@@ -67,25 +55,18 @@ class App extends Component {
   }
 
   render() {
-    const {
-      setFilterIsOpen,
-      list,
-      setSearch,
-      muiTheme,
-      classes
-    } = this.props
+    const { setFilterIsOpen, list, setSearch, muiTheme, classes } = this.props
 
     const filterFields = [
       { name: 'name', label: 'Name' },
       { name: 'email', label: 'Email' },
       { name: 'registered', label: 'Registered', type: 'date' },
       { name: 'isActive', label: 'Is Active', type: 'bool' },
+      { name: 'testObject', label: 'Object', type: 'object' }
     ]
-
 
     return (
       <div>
-
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
             <Typography variant="title" color="inherit" className={classes.flex}>
@@ -93,67 +74,64 @@ class App extends Component {
             </Typography>
             <div style={{ display: 'flex' }}>
               <div style={{ width: 'calc(100% - 84px)' }}>
-                <div style={{
-                  display: 'inline-block',
-                  backgroundColor: 'transparent',
-                  borderRadius: 5,
-                  width: 600,
-                  maxWidth: '100%'
-                }}
-                >
-                  <div style={{
-                    display: 'flex',
-                    borderRadius: 4,
-                    paddingLeft: 10,
-                    paddingRight: 10
+                <div
+                  style={{
+                    display: 'inline-block',
+                    backgroundColor: 'transparent',
+                    borderRadius: 5,
+                    width: 600,
+                    maxWidth: '100%'
                   }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      borderRadius: 4,
+                      paddingLeft: 10,
+                      paddingRight: 10
+                    }}
                   >
-                    <Icon style={{ marginLeft: 10, marginTop: 12, marginRight: 15 }} >search</Icon>
+                    <Icon style={{ marginLeft: 10, marginTop: 12, marginRight: 15 }}>search</Icon>
                     <TextField
                       style={{ width: '100%' }}
-                      onChange={(e) => {
+                      onChange={e => {
                         setSearch('demo', e.target.value)
                       }}
                     />
                   </div>
                 </div>
               </div>
-
             </div>
-            <IconButton color="inherit" onClick={() => setFilterIsOpen('demo', true)} ><Icon>filter_list</Icon></IconButton>
+            <IconButton color="inherit" onClick={() => setFilterIsOpen('demo', true)}>
+              <Icon>filter_list</Icon>
+            </IconButton>
           </Toolbar>
         </AppBar>
 
         <List>
-          <ReactList
-            itemRenderer={this.renderItem}
-            length={list ? list.length : 0}
-            type='simple'
-          />
+          <ReactList itemRenderer={this.renderItem} length={list ? list.length : 0} type="simple" />
         </List>
 
         <FilterDrawer
           name={'demo'}
           fields={filterFields}
 
-        //localizing the DatePicker
-        //locale={'de-DE'}
-        //DateTimeFormat={global.Intl.DateTimeFormat}
-        //okLabel="OK"
-        //cancelLabel="Abbrechen"
+          //localizing the DatePicker
+          //locale={'de-DE'}
+          //DateTimeFormat={global.Intl.DateTimeFormat}
+          //okLabel="OK"
+          //cancelLabel="Abbrechen"
         />
-
-
       </div>
     )
   }
 }
 
 App.propTypes = {
-  setFilterIsOpen: PropTypes.func.isRequired,
+  setFilterIsOpen: PropTypes.func.isRequired
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { filters, muiTheme } = state
   const { hasFilters } = filterSelectors.selectFilterProps('demo', filters)
   const list = filterSelectors.getFilteredList('demo', filters, source /*, fieldValue => fieldValue.val*/)
@@ -163,7 +141,6 @@ const mapStateToProps = (state) => {
     list
   }
 }
-
 
 export default connect(
   mapStateToProps,

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Malone Austin",
+    "email": "maloneaustin@apextri.com",
+    "registered": "2001-10-01",
+    "isActive": false,
+    "testObject": { "prop1": "123456", "prop2": "987654321" }
+  },
+  {
+    "name": "Angelia Mitchell",
+    "email": "angeliamitchell@apextri.com",
+    "registered": "1994-10-17",
+    "isActive": false,
+    "testObject": { "prop1": "2222222", "prop2": "3333333" }
+  },
+  {
+    "name": "Angelia Mitchell",
+    "email": "angeliamitchell@apextri.com",
+    "registered": "1994-10-17",
+    "isActive": false
+  }
+]

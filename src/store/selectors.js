@@ -11,6 +11,10 @@ function getValue(source, fieldName, getSourceValue = fieldValue => fieldValue, 
   if (source != null && getSourceValue(source)) {
     let fieldValue = getSourceValue(source)[fieldName]
 
+    if (type === 'object') {
+      return fieldValue ? fieldValue : {}
+    }
+
     if (typeof fieldValue === 'object' || fieldValue instanceof Object) {
       if (fieldValue.hasOwnProperty('label')) {
         fieldValue = fieldValue.label
@@ -33,7 +37,7 @@ export function dynamicSort(sortField, sortOrientation, getSourceValue) {
   return (x, y) => {
     var a = getValue(x, sortField, getSourceValue)
     var b = getValue(y, sortField, getSourceValue)
-    var result = (a < b) ? -1 : (a > b) ? 1 : 0
+    var result = a < b ? -1 : a > b ? 1 : 0
     return result * sortOrder
   }
 }
@@ -104,18 +108,17 @@ export function getFilteredList(filterName, filters, list, getSourceValue) {
 
   let result = [...list]
 
-  if (queries) {
-    for (let query of queries) {
-      const { value, operator, field, isCaseSensitive, isSet, type } = selectQueryProps(query)
+  result = result.filter((row, i) => {
+    let show = true
 
-      result = result.filter((row, i) => {
-        let show = false
+    if (queries) {
+      for (let query of queries) {
+        const { value, operator, field, isCaseSensitive, isSet, type } = selectQueryProps(query)
 
         if (isSet) {
           let fieldValue = getValue(row, field.value, getSourceValue, isCaseSensitive, type)
 
           if (type === 'date') {
-
             const queryDate = moment(value)
 
             switch (operator.value) {
@@ -146,6 +149,10 @@ export function getFilteredList(filterName, filters, list, getSourceValue) {
               default:
                 break
             }
+
+            if (!show) {
+              return show
+            }
           } else if (type === 'bool') {
             let fieldVal = false
             if (fieldValue === true || fieldValue === 'true') {
@@ -157,7 +164,20 @@ export function getFilteredList(filterName, filters, list, getSourceValue) {
               queryVal = true
             }
 
-            show = (fieldVal === queryVal)
+            show = fieldVal === queryVal
+
+            if (!show) {
+              return show
+            }
+          } else if (type === 'object') {
+            show =
+              JSON.stringify(fieldValue)
+                .toUpperCase()
+                .indexOf(String(value).toUpperCase()) !== -1
+
+            if (!show) {
+              return show
+            }
           } else {
             const valueString = String(value)
             const fieldValueString = String(fieldValue)
@@ -195,26 +215,28 @@ export function getFilteredList(filterName, filters, list, getSourceValue) {
               default:
                 break
             }
+
+            if (!show) {
+              return show
+            }
           }
-        } else {
-          show = true // If the query is not completed
         }
-
-        if (!show) {
-          return false // We return false if one of all queries doesn't match
-        }
-
-        return show
-      })
+      }
     }
-  }
 
-  // search
-  if (searchValue != null && searchValue !== '') {
-    result = result.filter((row, i) => {
-      return JSON.stringify(row).toUpperCase().indexOf(String(searchValue).toUpperCase()) !== -1
-    })
-  }
+    if (searchValue != null && searchValue !== '' && show) {
+      show =
+        JSON.stringify(row)
+          .toUpperCase()
+          .indexOf(String(searchValue).toUpperCase()) !== -1
+    }
+
+    if (!show) {
+      return false // We return false if one of all queries doesn't match
+    }
+
+    return show
+  })
 
   if (result !== undefined && sortField !== null) {
     result.sort(dynamicSort(sortField.value, sortOrientation, getSourceValue))
