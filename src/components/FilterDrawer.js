@@ -30,6 +30,9 @@ const styles = theme => ({
   },
   drawer: {
     zIndex: theme.zIndex.drawer + 2
+  },
+  typography: {
+    useNextVariants: true,
   }
 })
 
