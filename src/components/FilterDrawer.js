@@ -30,6 +30,9 @@ const styles = theme => ({
   },
   drawer: {
     zIndex: theme.zIndex.drawer + 2
+  },
+  typography: {
+    useNextVariants: true,
   }
 })
 
@@ -214,7 +217,7 @@ class FilterDrawer extends Component {
               <Divider />
 
               <Toolbar>
-                <Typography variant="subheading" color="inherit" className={classes.flex}>
+                <Typography variant="subtitle" color="inherit" className={classes.flex}>
                   {formatMessage ? formatMessage({ id: 'filter' }) : 'Filter'}
                 </Typography>
                 <Tooltip

@@ -30,6 +30,9 @@ const styles = theme => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1
+  },
+  typography: {
+    useNextVariants: true,
   }
 })
 
@@ -69,7 +72,7 @@ class App extends Component {
       <div>
         <AppBar position="static" className={classes.appBar}>
           <Toolbar>
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <Typography variant="h6" color="inherit" className={classes.flex}>
               {`material-ui-filter (${source.length} entries)`}
             </Typography>
             <div style={{ display: 'flex' }}>

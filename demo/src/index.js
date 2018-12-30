@@ -13,7 +13,9 @@ import { createStore, compose, applyMiddleware } from 'redux'
 import { render } from 'react-dom'
 
 const logger = createLogger({})
-const muiTheme = createMuiTheme()
+const muiTheme = createMuiTheme({typography: {
+  useNextVariants: true,
+}})
 const store = createStore(reducers, {}, compose(applyMiddleware(logger)))
 
 render(
