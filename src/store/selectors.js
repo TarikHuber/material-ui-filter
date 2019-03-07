@@ -171,9 +171,6 @@ export function getFilteredList(filterName, filters, list, getSourceValue) {
             }
           } else if (type === 'object') {
 
-            console.log('fieldValue',fieldValue)
-            console.log('value',value)
-
             show =
               JSON.stringify(fieldValue ? fieldValue : '')
                 .toUpperCase()
