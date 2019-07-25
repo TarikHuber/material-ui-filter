@@ -18,7 +18,7 @@ import Typography from '@material-ui/core/Typography'
 import { SearchField } from './SearchField'
 import { SelectField } from 'muishift'
 import { connect } from 'react-redux'
-import { withTheme, withStyles } from '@material-ui/core/styles'
+import {  withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
   flex: {
@@ -372,4 +372,4 @@ const mapStateToProps = (state, ownProps) => {
 export default connect(
   mapStateToProps,
   { ...filterActions }
-)(withTheme()(withStyles(styles, { withTheme: true })(FilterDrawer)))
+)(withStyles(styles, { withTheme: true })(FilterDrawer))
