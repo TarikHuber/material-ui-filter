@@ -1,10 +1,11 @@
 import * as filterActions from '../store/actions'
 import * as filterSelectors from '../store/selectors'
+import AddCircle from '@material-ui/icons/AddCircle'
 import AppBar from '@material-ui/core/AppBar'
 import Button from '@material-ui/core/Button'
+import ChevronRight from '@material-ui/icons/ChevronRight'
 import Divider from '@material-ui/core/Divider'
 import Drawer from '@material-ui/core/Drawer'
-import Icon from '@material-ui/core/Icon'
 import IconButton from '@material-ui/core/IconButton'
 import Input from '@material-ui/core/Input'
 import ListSubheader from '@material-ui/core/ListSubheader'
@@ -12,13 +13,14 @@ import MenuIcon from '@material-ui/icons/Menu'
 import OperatorField from './OperatorField'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import SortByAlpha from '@material-ui/icons/SortByAlpha'
 import Toolbar from '@material-ui/core/Toolbar'
 import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import { SearchField } from './SearchField'
 import { SelectField } from 'muishift'
 import { connect } from 'react-redux'
-import {  withStyles } from '@material-ui/core/styles'
+import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
   flex: {
@@ -173,7 +175,7 @@ class FilterDrawer extends Component {
                     placement="bottom-end"
                   >
                     <IconButton color="inherit" onClick={this.handleCloseFilter}>
-                      <Icon>chevron_right</Icon>
+                      <ChevronRight />
                     </IconButton>
                   </Tooltip>
                   <Typography variant="h6" color="inherit">
@@ -209,7 +211,7 @@ class FilterDrawer extends Component {
                     }}
                     color={sortOrientation ? 'primary' : 'secondary'}
                   >
-                    <Icon>sort_by_alpha</Icon>
+                    <SortByAlpha />
                   </IconButton>
                 </Tooltip>
               </Toolbar>
@@ -226,7 +228,7 @@ class FilterDrawer extends Component {
                   placement="bottom-end"
                 >
                   <IconButton onClick={this.handleAddFilterQuery} color="primary">
-                    <Icon>add_circle</Icon>
+                    <AddCircle />
                   </IconButton>
                 </Tooltip>
               </Toolbar>

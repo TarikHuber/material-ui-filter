@@ -1,21 +1,22 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import AppBar from '@material-ui/core/AppBar'
-import { FilterDrawer, filterSelectors, filterActions } from '../../src'
-import Icon from '@material-ui/core/Icon'
+import Button from '@material-ui/core/Button'
+import Divider from '@material-ui/core/Divider'
+import FilterList from '@material-ui/icons/FilterList'
 import IconButton from '@material-ui/core/IconButton'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
-import TextField from '@material-ui/core/TextField'
-import source from '../src/data.json'
+import MenuIcon from '@material-ui/icons/Menu'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
 import ReactList from 'react-list'
-import Divider from '@material-ui/core/Divider'
+import Search from '@material-ui/icons/Search'
+import TextField from '@material-ui/core/TextField'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
+import source from '../src/data.json'
+import { FilterDrawer, filterSelectors, filterActions } from '../../src'
+import { connect } from 'react-redux'
 import { withStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import MenuIcon from '@material-ui/icons/Menu'
 
 const styles = theme => ({
   root: {
@@ -32,7 +33,7 @@ const styles = theme => ({
     zIndex: theme.zIndex.drawer + 1
   },
   typography: {
-    useNextVariants: true,
+    useNextVariants: true
   }
 })
 
@@ -94,7 +95,7 @@ class App extends Component {
                       paddingRight: 10
                     }}
                   >
-                    <Icon style={{ marginLeft: 10, marginTop: 12, marginRight: 15 }}>search</Icon>
+                    <Search style={{ marginLeft: 10, marginTop: 12, marginRight: 15 }} />
                     <TextField
                       style={{ width: '100%' }}
                       onChange={e => {
@@ -106,7 +107,7 @@ class App extends Component {
               </div>
             </div>
             <IconButton color="inherit" onClick={() => setFilterIsOpen('demo', true)}>
-              <Icon>filter_list</Icon>
+              <FilterList />
             </IconButton>
           </Toolbar>
         </AppBar>
