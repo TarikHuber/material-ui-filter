@@ -6,7 +6,8 @@ import Switch from '@material-ui/core/Switch'
 import TextField from '@material-ui/core/TextField'
 import Toolbar from '@material-ui/core/Toolbar'
 import Tooltip from '@material-ui/core/Tooltip'
-import { DatePicker } from 'material-ui-pickers'
+import { KeyboardDatePicker } from '@material-ui/pickers'
+import moment from 'moment'
 
 export const SearchField = ({
   theme,
@@ -41,17 +42,16 @@ export const SearchField = ({
   if (fieldType === 'date') {
     return (
       <Toolbar>
-        <DatePicker
-          keyboard
+        <KeyboardDatePicker
+          clearable
           label={formatMessage ? formatMessage({ id: 'enter_query_text' }) : ''}
           format="DD/MM/YYYY"
-          placeholder="10/10/2018"
-          mask={value => (value ? [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/] : [])}
+          placeholder={moment().format('DD/MM/YYYY')}
           value={value}
           onChange={val => {
-            handleQueryChange(queryIndex, 'value', val.format())
+            handleQueryChange(queryIndex, 'value', val ? val.format() : null)
           }}
-          disableOpenOnEnter
+          autoOk
           animateYearScrolling={false}
         />
       </Toolbar>
