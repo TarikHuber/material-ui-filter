@@ -7,12 +7,22 @@ export const TIME_TYPE = 'time'
 export const ARRAY_TYPE = 'array'
 export const SELECT_FIELD_TYPE = 'select_field'
 
-function getValue(source, fieldName, getSourceValue = fieldValue => fieldValue, isCaseSensitive, type) {
+function getValue(
+  source,
+  fieldName,
+  getSourceValue = fieldValue => fieldValue,
+  isCaseSensitive,
+  type
+) {
   if (source != null && getSourceValue(source)) {
     let fieldValue = getSourceValue(source)[fieldName]
 
     if (type === 'object') {
       return fieldValue ? fieldValue : {}
+    }
+
+    if (type === 'number') {
+      return fieldValue ? parseFloat(fieldValue) : 0
     }
 
     if (typeof fieldValue === 'object' || fieldValue instanceof Object) {
@@ -26,7 +36,9 @@ function getValue(source, fieldName, getSourceValue = fieldValue => fieldValue, 
     } else if (type === 'bool') {
       return fieldValue === undefined ? 'false' : fieldValue
     } else {
-      return isCaseSensitive === true ? String(fieldValue) : String(fieldValue).toUpperCase()
+      return isCaseSensitive === true
+        ? String(fieldValue)
+        : String(fieldValue).toUpperCase()
     }
   }
 }
@@ -54,11 +66,16 @@ export function selectFilterProps(filterName, filters) {
     const filter = filters[filterName]
 
     isOpen = filter.isOpen !== undefined ? filter.isOpen : isOpen
-    hasFilters = filter.queries !== undefined ? filter.queries.length : hasFilters
+    hasFilters =
+      filter.queries !== undefined ? filter.queries.length : hasFilters
     sortField = filter.sortField !== undefined ? filter.sortField : sortField
-    sortOrientation = filter.sortOrientation !== undefined ? filter.sortOrientation : sortOrientation
+    sortOrientation =
+      filter.sortOrientation !== undefined
+        ? filter.sortOrientation
+        : sortOrientation
     queries = filter.queries !== undefined ? filter.queries : queries
-    searchValue = filter.search !== undefined ? filter.search.value : searchValue
+    searchValue =
+      filter.search !== undefined ? filter.search.value : searchValue
   }
 
   return {
@@ -67,7 +84,7 @@ export function selectFilterProps(filterName, filters) {
     sortField,
     sortOrientation,
     queries,
-    searchValue
+    searchValue,
   }
 }
 
@@ -84,8 +101,16 @@ export function selectQueryProps(query) {
     operator = query.operator !== undefined ? query.operator : operator
     field = query.field !== undefined ? query.field : field
     type = query.type !== undefined ? query.type : type
-    isCaseSensitive = query.isCaseSensitive !== undefined ? query.isCaseSensitive : isCaseSensitive
-    isSet = field !== undefined && field !== null && operator !== undefined && operator !== null && value !== undefined
+    isCaseSensitive =
+      query.isCaseSensitive !== undefined
+        ? query.isCaseSensitive
+        : isCaseSensitive
+    isSet =
+      field !== undefined &&
+      field !== null &&
+      operator !== undefined &&
+      operator !== null &&
+      value !== undefined
   }
 
   return {
@@ -94,12 +119,17 @@ export function selectQueryProps(query) {
     field,
     type,
     isCaseSensitive,
-    isSet
+    isSet,
   }
 }
 
 export function getFilteredList(filterName, filters, list, getSourceValue) {
-  const { sortField, sortOrientation, queries, searchValue } = selectFilterProps(filterName, filters)
+  const {
+    sortField,
+    sortOrientation,
+    queries,
+    searchValue,
+  } = selectFilterProps(filterName, filters)
   const dateOptions = { day: '2-digit', month: '2-digit', year: 'numeric' }
 
   if (list == null || list.length < 1) {
@@ -113,10 +143,23 @@ export function getFilteredList(filterName, filters, list, getSourceValue) {
 
     if (queries) {
       for (let query of queries) {
-        const { value, operator, field, isCaseSensitive, isSet, type } = selectQueryProps(query)
+        const {
+          value,
+          operator,
+          field,
+          isCaseSensitive,
+          isSet,
+          type,
+        } = selectQueryProps(query)
 
         if (isSet) {
-          let fieldValue = getValue(row, field.value, getSourceValue, isCaseSensitive, type)
+          let fieldValue = getValue(
+            row,
+            field.value,
+            getSourceValue,
+            isCaseSensitive,
+            type
+          )
 
           if (type === 'date') {
             const queryDate = moment(value)
@@ -153,6 +196,41 @@ export function getFilteredList(filterName, filters, list, getSourceValue) {
             if (!show) {
               return show
             }
+          } else if (type === 'number') {
+            const queryNumber = parseFloat(value)
+
+            switch (operator.value) {
+              case '=':
+                show = fieldValue === queryNumber
+                break
+
+              case '!=':
+                show = fieldValue !== queryNumber
+                break
+
+              case '>':
+                show = fieldValue > queryNumber
+                break
+
+              case '>=':
+                show = fieldValue >= queryNumber
+                break
+
+              case '<':
+                show = fieldValue < queryNumber
+                break
+
+              case '<=':
+                show = fieldValue <= queryNumber
+                break
+
+              default:
+                break
+            }
+
+            if (!show) {
+              return show
+            }
           } else if (type === 'bool') {
             let fieldVal = false
             if (fieldValue === true || fieldValue === 'true') {
@@ -170,7 +248,6 @@ export function getFilteredList(filterName, filters, list, getSourceValue) {
               return show
             }
           } else if (type === 'object') {
-
             show =
               JSON.stringify(fieldValue ? fieldValue : '')
                 .toUpperCase()
@@ -182,7 +259,8 @@ export function getFilteredList(filterName, filters, list, getSourceValue) {
           } else {
             const valueString = String(value)
             const fieldValueString = String(fieldValue)
-            let queryValueString = isCaseSensitive === true ? valueString : valueString.toUpperCase()
+            let queryValueString =
+              isCaseSensitive === true ? valueString : valueString.toUpperCase()
 
             switch (operator.value) {
               case 'like':

@@ -3,19 +3,22 @@
     "name": "Malone Austin",
     "email": "maloneaustin@apextri.com",
     "registered": "2001-10-01",
-    "isActive": false
+    "isActive": false,
+    "amount": 10
   },
   {
     "name": "Angelia Mitchell",
     "email": "angeliamitchell@apextri.com",
     "registered": "1994-10-17",
-    "isActive": false
+    "isActive": false,
+    "amount": 20
   },
   {
     "name": "Douglas Ramsey",
     "email": "douglasramsey@apextri.com",
     "registered": "2012-12-22",
-    "isActive": false
+    "isActive": false,
+    "amount": 30
   },
   {
     "name": "Herminia Rivera",

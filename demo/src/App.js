@@ -20,21 +20,21 @@ import { withStyles } from '@material-ui/core/styles'
 
 const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   flex: {
-    flex: 1
+    flex: 1,
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20
+    marginRight: 20,
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1
+    zIndex: theme.zIndex.drawer + 1,
   },
   typography: {
-    useNextVariants: true
-  }
+    useNextVariants: true,
+  },
 })
 
 class App extends Component {
@@ -66,7 +66,8 @@ class App extends Component {
       { name: 'email', label: 'Email' },
       { name: 'registered', label: 'Registered', type: 'date' },
       { name: 'isActive', label: 'Is Active', type: 'bool' },
-      { name: 'testObject', label: 'Object', type: 'object' }
+      { name: 'testObject', label: 'Object', type: 'object' },
+      { name: 'amount', label: 'Amount', type: 'number' },
     ]
 
     return (
@@ -84,7 +85,7 @@ class App extends Component {
                     backgroundColor: 'transparent',
                     borderRadius: 5,
                     width: 600,
-                    maxWidth: '100%'
+                    maxWidth: '100%',
                   }}
                 >
                   <div
@@ -92,10 +93,12 @@ class App extends Component {
                       display: 'flex',
                       borderRadius: 4,
                       paddingLeft: 10,
-                      paddingRight: 10
+                      paddingRight: 10,
                     }}
                   >
-                    <Search style={{ marginLeft: 10, marginTop: 12, marginRight: 15 }} />
+                    <Search
+                      style={{ marginLeft: 10, marginTop: 12, marginRight: 15 }}
+                    />
                     <TextField
                       style={{ width: '100%' }}
                       onChange={e => {
@@ -106,14 +109,21 @@ class App extends Component {
                 </div>
               </div>
             </div>
-            <IconButton color="inherit" onClick={() => setFilterIsOpen('demo', true)}>
+            <IconButton
+              color="inherit"
+              onClick={() => setFilterIsOpen('demo', true)}
+            >
               <FilterList />
             </IconButton>
           </Toolbar>
         </AppBar>
 
         <List>
-          <ReactList itemRenderer={this.renderItem} length={list ? list.length : 0} type="simple" />
+          <ReactList
+            itemRenderer={this.renderItem}
+            length={list ? list.length : 0}
+            type="simple"
+          />
         </List>
 
         <FilterDrawer
@@ -132,21 +142,24 @@ class App extends Component {
 }
 
 App.propTypes = {
-  setFilterIsOpen: PropTypes.func.isRequired
+  setFilterIsOpen: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state => {
   const { filters, muiTheme } = state
   const { hasFilters } = filterSelectors.selectFilterProps('demo', filters)
-  const list = filterSelectors.getFilteredList('demo', filters, source /*, fieldValue => fieldValue.val*/)
+  const list = filterSelectors.getFilteredList(
+    'demo',
+    filters,
+    source /*, fieldValue => fieldValue.val*/
+  )
 
   return {
     hasFilters,
-    list
+    list,
   }
 }
 
-export default connect(
-  mapStateToProps,
-  { ...filterActions }
-)(withStyles(styles, { withTheme: true })(App))
+export default connect(mapStateToProps, { ...filterActions })(
+  withStyles(styles, { withTheme: true })(App)
+)
