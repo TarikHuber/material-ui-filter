@@ -166,27 +166,27 @@ export function getFilteredList(filterName, filters, list, getSourceValue) {
 
             switch (operator.value) {
               case '=':
-                show = queryDate.isSame(fieldValue, 'day')
+                show = fieldValue.isSame(queryDate, 'day')
                 break
 
               case '!=':
-                show = !queryDate.isSame(fieldValue, 'day')
+                show = !fieldValue.isSame(queryDate, 'day')
                 break
 
               case '>':
-                show = queryDate.isAfter(fieldValue, 'day')
+                show = fieldValue.isAfter(queryDate, 'day')
                 break
 
               case '>=':
-                show = queryDate.isSameOrAfter(fieldValue, 'day')
+                show = fieldValue.isSameOrAfter(queryDate, 'day')
                 break
 
               case '<':
-                show = queryDate.isBefore(fieldValue, 'day')
+                show = fieldValue.isBefore(queryDate, 'day')
                 break
 
               case '<=':
-                show = queryDate.isSameOrBefore(fieldValue, 'day')
+                show = fieldValue.isSameOrBefore(queryDate, 'day')
                 break
 
               default:
