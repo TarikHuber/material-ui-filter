@@ -304,10 +304,11 @@ export function getFilteredList(filterName, filters, list, getSourceValue) {
     }
 
     if (searchValue != null && searchValue !== '' && show) {
-      show =
-        JSON.stringify(row)
-          .toUpperCase()
-          .indexOf(String(searchValue).toUpperCase()) !== -1
+      let rowInString = "";
+      for (let key of Object.keys(row)) {
+        rowInString += row[key] + ",";
+      }
+      show = JSON.stringify(rowInString).toUpperCase().indexOf(String(searchValue).toUpperCase()) !== -1;
     }
 
     return show
